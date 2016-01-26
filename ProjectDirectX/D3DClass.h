@@ -8,6 +8,7 @@
 
 #include <d3d11.h>
 #include <DirectXMath.h>
+#include "StructLibrary.h"
 using namespace DirectX;
 
 class D3DClass
@@ -24,6 +25,7 @@ private:
 	ID3D11DepthStencilState* m_depthStencilState;
 	ID3D11DepthStencilView* m_depthStencilView;
 	ID3D11RasterizerState* m_rasterState;
+
 	XMMATRIX m_projectionMatrix;
 	XMMATRIX m_worldMatrix;
 	XMMATRIX m_orthoMatrix;

@@ -142,16 +142,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="D3DClass.cpp" />
     <ClCompile Include="GraphicsHandler.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ObjectModel.cpp" />
+    <ClCompile Include="ShaderHandler.cpp" />
     <ClCompile Include="System.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="D3DClass.h" />
     <ClInclude Include="GraphicsHandler.h" />
     <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="ObjectModel.h" />
+    <ClInclude Include="ShaderHandler.h" />
+    <ClInclude Include="SimpleMath.h" />
+    <ClInclude Include="StructLibrary.h" />
     <ClInclude Include="System.h" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ShaderLibrary.hlsli" />
+    <None Include="SimpleMath.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

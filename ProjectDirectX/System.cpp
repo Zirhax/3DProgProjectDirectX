@@ -262,7 +262,7 @@ void System::InitializeWindows(int & width, int & height)
 	SetFocus(m_hwnd);
 
 	//Hide the mouse cursor
-	ShowCursor(false);
+	ShowCursor(true);
 
 	return;
 }
