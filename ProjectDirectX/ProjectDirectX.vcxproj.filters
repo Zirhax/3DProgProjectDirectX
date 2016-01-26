@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{3ed5f24e-5321-4789-81b2-a12ae381203d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{8b149845-0802-4c4e-8e82-0f410e3e36da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -65,11 +68,11 @@
     <ClInclude Include="SimpleMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StructLibrary.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderHandler.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StructLibrary.h">
+      <Filter>Libraries</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -84,11 +87,11 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ShaderLibrary.hlsli">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="SimpleMath.inl">
       <Filter>Source Files</Filter>
+    </None>
+    <None Include="ShaderLibrary.hlsli">
+      <Filter>Libraries</Filter>
     </None>
   </ItemGroup>
 </Project>

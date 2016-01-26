@@ -27,7 +27,7 @@ private:
 	void OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFilename);
 
 	bool SetShaderParameters(ID3D11DeviceContext* deviceContext, MatrixBufferStruct matrices);
-	void RenderShader(ID3D11DeviceContext* deviceContext, int);
+	void RenderShader(ID3D11DeviceContext* deviceContext, int indexCount);
 
 public:
 	ShaderHandler();

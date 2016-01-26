@@ -235,18 +235,53 @@ void ShaderHandler::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd
 	return;
 }
 
-bool ShaderHandler::SetShaderParameters(ID3D11DeviceContext * deviceContext, MatrixBufferStruct matrices)
+bool ShaderHandler::SetShaderParameters(ID3D11DeviceContext * deviceContext, MatrixBufferStruct matrices)	//Allows for easier update of shader values / constant buffer values
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	MatrixBufferStruct* dataPtr = NULL;
 	unsigned int bufferNumber = 0;
 	
+	//Transpose the matrices to prepare them for the shader (direct11 requires it?)
+	matrices.world = matrices.world.Transpose();
+	matrices.view = matrices.view.Transpose();
+	matrices.projection = matrices.projection.Transpose();
 
+	//Lock the m_matrix
+	result = deviceContext->Map(this->m_matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	//Get a pointer to the data
+	dataPtr = (MatrixBufferStruct*)mappedResource.pData;
+
+	//Now we copy the matrices into the mapped data
+	dataPtr->world = matrices.world;
+	dataPtr->view = matrices.view;
+	dataPtr->projection = matrices.projection;
+
+	//Unlock/unmap the constant buffer
+	deviceContext->Unmap(this->m_matrixBuffer, 0);
+
+	//set the position of the constant buffer in the vertex shader
+	bufferNumber = 0;
+
+	//Set the constant buffer in the vertex shader with the updated values
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &this->m_matrixBuffer);
 
 	return true;
 }
 
-void ShaderHandler::RenderShader(ID3D11DeviceContext * deviceContext, int)
+void ShaderHandler::RenderShader(ID3D11DeviceContext * deviceContext, int indexCount)
 {
+	deviceContext->IASetInputLayout(this->m_layout);
+	deviceContext->VSSetShader(m_vertexShader, NULL, 0);
+	deviceContext->PSSetShader(this->m_pixelShader, NULL, 0);
+
+	//Render the content
+	deviceContext->DrawIndexed(indexCount, 0, 0);
+
+	return;
 }
