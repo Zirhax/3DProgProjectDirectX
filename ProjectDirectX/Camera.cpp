@@ -75,15 +75,15 @@ Vector3 Camera::GetUpVector()
 
 void Camera::Render()	//Builds and updates the view-matrix
 {
-	Vector3 up(0, 0, 0), position(0, 0, 0), lookAt(0, 0, 0);
+	Vector4 up(0, 1.0f, 0, 0), position(0, 0, 0, 0), lookAt(0, 0, 0, 1);
 	float yaw = 0.0f, pitch = 0.0f, roll = 0.0f;
 	Matrix rotationMatrix;
 	//check in how the vector is rotated around its look-at. Normally (0, 1, 0), for standing upright.
-	up = this->m_up;
+	up = Vector4(m_up.x, m_up.y, m_up.z, 0.0f);
 	//Setup the possition of the camera in world-space.
-	position = m_position;
+	position = Vector4(m_position.x, m_position.y, m_position.z, 0.0f);
 	//Set where the camera is looking at by default.
-	lookAt = Vector3(0.0f, 0.0f, 1.0f);
+	lookAt = Vector4(0.0f, 0.0f, 2.0f, 1.0f);
 	//Set the yaw (Y axis), pitch (X axis), and roll (Z axis) rotations in radians.
 	pitch = this->m_rotation.x * 0.0174532925f;
 	yaw = this->m_rotation.y * 0.0174532925f;
