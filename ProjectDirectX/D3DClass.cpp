@@ -132,19 +132,19 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
 
 	// Release the display mode list.
 	delete[] displayModeList;
-	displayModeList = 0;
+	displayModeList = NULL;
 
 	// Release the adapter output.
 	adapterOutput->Release();
-	adapterOutput = 0;
+	adapterOutput = NULL;
 
 	// Release the adapter.
 	adapter->Release();
-	adapter = 0;
+	adapter = NULL;
 
 	// Release the factory.
 	factory->Release();
-	factory = 0;
+	factory = NULL;
 
 	// Initialize the swap chain description.
 	ZeroMemory(&swapChainDesc, sizeof(swapChainDesc));
@@ -362,14 +362,14 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
 
 	//MATRICES------------------------------------------------------------------------------------------
 	// Create the projection matrix for 3D rendering.
-	m_projectionMatrix = XMMatrixPerspectiveFovLH(fieldOfView, screenAspect, screenNear, screenDepth);
-
+	m_projectionMatrix = DirectX::XMMatrixPerspectiveFovLH(fieldOfView, screenAspect, screenNear, screenDepth);
+	
 	// Initialize the world matrix to the identity matrix.
-	m_worldMatrix = XMMatrixIdentity();
+	m_worldMatrix = DirectX::XMMatrixIdentity();
 
 	// Create an orthographic projection matrix for 2D rendering that we probably won't be using.
-	m_orthoMatrix = XMMatrixOrthographicLH((float)screenWidth, (float)screenHeight, screenNear, screenDepth);
-
+	m_orthoMatrix = DirectX::XMMatrixOrthographicLH((float)screenWidth, (float)screenHeight, screenNear, screenDepth);
+	
 	return true;
 }
 
@@ -484,21 +484,21 @@ ID3D11DeviceContext* D3DClass::GetDeviceContext()
 }
 
 
-void D3DClass::GetProjectionMatrix(XMMATRIX& projectionMatrix)
+void D3DClass::GetProjectionMatrix(Matrix& projectionMatrix)
 {
 	projectionMatrix = m_projectionMatrix;
 	return;
 }
 
 
-void D3DClass::GetWorldMatrix(XMMATRIX& worldMatrix)
+void D3DClass::GetWorldMatrix(Matrix& worldMatrix)
 {
 	worldMatrix = m_worldMatrix;
 	return;
 }
 
 
-void D3DClass::GetOrthoMatrix(XMMATRIX& orthoMatrix)
+void D3DClass::GetOrthoMatrix(Matrix& orthoMatrix)
 {
 	orthoMatrix = m_orthoMatrix;
 	return;

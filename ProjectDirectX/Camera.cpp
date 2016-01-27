@@ -4,9 +4,9 @@
 
 Camera::Camera()
 {
-	m_position = Vector3(0, 0, 0);
-	m_rotation = Vector3(0, 0, 0);
-	m_up = Vector3(0, 1, 0);
+	m_position = Vector3(0.0f, 0.0f, 0.0f);
+	m_rotation = Vector3(0.0f, 0.0f, 0.0f);
+	m_up = Vector3(0.0f, 1.0f, 0.0f);
 	m_viewMatrix = DirectX::XMMatrixIdentity();
 }
 
@@ -95,10 +95,9 @@ void Camera::Render()	//Builds and updates the view-matrix
 	//Transform the lookAt and up vector by the rotation matrix so the view is correctly rotated at the origin
 	lookAt = DirectX::XMVector2TransformCoord(lookAt, rotationMatrix);
 	up = DirectX::XMVector2TransformCoord(up, rotationMatrix);
-
+	//DirectX::XMMATRIX
 	//Translate the rotated cmaera position to the locaiton of the viewer
 	lookAt = position + lookAt;
-
 	//Create the view matrix from our updated vectors
 	this->m_viewMatrix = DirectX::XMMatrixLookAtLH(position, lookAt, up);
 	return;

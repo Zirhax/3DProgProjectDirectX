@@ -8,9 +8,10 @@
 
 #include <d3d11.h>
 #include <DirectXMath.h>
+#include "SimpleMath.h"
 #include "StructLibrary.h"
 using namespace DirectX;
-
+using namespace DirectX::SimpleMath;
 class D3DClass
 {
 private:
@@ -26,9 +27,9 @@ private:
 	ID3D11DepthStencilView* m_depthStencilView;
 	ID3D11RasterizerState* m_rasterState;
 
-	XMMATRIX m_projectionMatrix;
-	XMMATRIX m_worldMatrix;
-	XMMATRIX m_orthoMatrix;
+	Matrix m_projectionMatrix;
+	Matrix m_worldMatrix;
+	Matrix m_orthoMatrix;
 public:
 	D3DClass();
 	D3DClass(const D3DClass& other);
@@ -43,9 +44,9 @@ public:
 	ID3D11Device* GetDevice();
 	ID3D11DeviceContext* GetDeviceContext();
 
-	void GetProjectionMatrix(XMMATRIX& projectionMatrix);
-	void GetWorldMatrix(XMMATRIX& worldMatrix);
-	void GetOrthoMatrix(XMMATRIX& orthoMatrix);
+	void GetProjectionMatrix(Matrix& projectionMatrix);
+	void GetWorldMatrix(Matrix& worldMatrix);
+	void GetOrthoMatrix(Matrix& orthoMatrix);
 
 	void GetVideoCardInfo(char* cardName, int& memory);
 };

@@ -60,6 +60,16 @@ bool ShaderHandler::Render(ID3D11DeviceContext * deviceContext, int indexCount, 
 	return result;
 }
 
+bool ShaderHandler::Render(ID3D11DeviceContext * deviceContext, int indexCount, Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix)
+{
+	MatrixBufferStruct temp;
+	temp.world = worldMatrix;
+	temp.view = viewMatrix;
+	temp.projection = projectionMatrix;
+
+	return this->Render(deviceContext, indexCount, temp);
+}
+
 
 //PRIVATE---------------------------------------------------------------------------------------------------------
 
@@ -73,13 +83,25 @@ bool ShaderHandler::InitializeShader(ID3D11Device * device, HWND hwnd, WCHAR *vs
 	ID3DBlob* pPS = nullptr;
 	D3D11_BUFFER_DESC  matrixBufferDesc;
 #pragma region
+
+	UINT flags = D3DCOMPILE_ENABLE_STRICTNESS;
+#if defined( DEBUG ) || defined( _DEBUG )
+	flags |= D3DCOMPILE_DEBUG;
+#endif
+	// Prefer higher CS shader profile when possible as CS 5.0 provides better performance on 11 - class hardware.
+		LPCSTR profile = (device->GetFeatureLevel() >= D3D_FEATURE_LEVEL_11_0) ? "vs_5_0" : "cs_4_0";
+	const D3D_SHADER_MACRO defines[] =
+	{
+		"EXAMPLE_DEFINE", "1",
+		NULL, NULL
+	};
 	hResult = D3DCompileFromFile(
 		vsFilename,		// filename VERTEXSHADER_NAME_WCHAR
-		nullptr,		// optional macros
-		nullptr,		// optional include files
-		"VS_main",		// entry point
+		defines,		// optional macros
+		D3D_COMPILE_STANDARD_FILE_INCLUDE,		// optional include files
+		"main",		// entry point
 		"vs_4_0",		// shader model (target)
-		0,				// shader compile options
+		flags,			// shader compile options
 		0,				// effect compile options
 		&pVS,			// double pointer to ID3DBlob		
 		&errorMessage	// pointer for Error Blob messages.
@@ -105,8 +127,8 @@ bool ShaderHandler::InitializeShader(ID3D11Device * device, HWND hwnd, WCHAR *vs
 	hResult = D3DCompileFromFile(
 		psFilename, // filename
 		nullptr,		// optional macros
-		nullptr,		// optional include files
-		"PS_main",		// entry point
+		D3D_COMPILE_STANDARD_FILE_INCLUDE,		// optional include files
+		"main",		// entry point
 		"ps_4_0",		// shader model (target)
 		0,				// shader compile options
 		0,				// effect compile options
@@ -155,7 +177,7 @@ bool ShaderHandler::InitializeShader(ID3D11Device * device, HWND hwnd, WCHAR *vs
 
 	//Setup the constant buffer for the vertices
 	matrixBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-	matrixBufferDesc.ByteWidth = sizeof(Vertex);
+	matrixBufferDesc.ByteWidth = sizeof(MatrixBufferStruct);
 	matrixBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	matrixBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	matrixBufferDesc.MiscFlags = 0;

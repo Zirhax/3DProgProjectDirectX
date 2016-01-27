@@ -37,6 +37,7 @@ public:
 	bool Initialize(ID3D11Device* device, HWND hwnd);
 	void Shutdown();
 	bool Render(ID3D11DeviceContext* deviceContext, int indexCount, MatrixBufferStruct matrices);
+	bool Render(ID3D11DeviceContext* deviceContext, int indexCount, Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix);
 };
 
 #endif

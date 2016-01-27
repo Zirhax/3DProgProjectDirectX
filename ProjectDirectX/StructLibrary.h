@@ -1,3 +1,5 @@
+#pragma once
+
 #include "SimpleMath.h"
 #include <string>
 using namespace DirectX::SimpleMath;
