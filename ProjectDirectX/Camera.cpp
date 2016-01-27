@@ -75,15 +75,15 @@ Vector3 Camera::GetUpVector()
 
 void Camera::Render()	//Builds and updates the view-matrix
 {
-	Vector4 up(0, 1.0f, 0, 0), position(0, 0, 0, 0), lookAt(0, 0, 0, 1);
+	Vector4 up(0, 1.0f, 0, 1.0f), position(0, 0, 0, 1), lookAt(0, 0, 1, 1);
 	float yaw = 0.0f, pitch = 0.0f, roll = 0.0f;
 	Matrix rotationMatrix;
 	//check in how the vector is rotated around its look-at. Normally (0, 1, 0), for standing upright.
-	up = Vector4(m_up.x, m_up.y, m_up.z, 0.0f);
+	up = Vector4(m_up.x, m_up.y, m_up.z, 1.0f);
 	//Setup the possition of the camera in world-space.
-	position = Vector4(m_position.x, m_position.y, m_position.z, 0.0f);
+	position = Vector4(m_position.x, m_position.y, m_position.z, 1.0f);
 	//Set where the camera is looking at by default.
-	lookAt = Vector4(0.0f, 0.0f, 2.0f, 1.0f);
+	lookAt = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 	//Set the yaw (Y axis), pitch (X axis), and roll (Z axis) rotations in radians.
 	pitch = this->m_rotation.x * 0.0174532925f;
 	yaw = this->m_rotation.y * 0.0174532925f;
@@ -93,13 +93,13 @@ void Camera::Render()	//Builds and updates the view-matrix
 	rotationMatrix = DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll);
 
 	//Transform the lookAt and up vector by the rotation matrix so the view is correctly rotated at the origin
-	lookAt = DirectX::XMVector2TransformCoord(lookAt, rotationMatrix);
-	up = DirectX::XMVector2TransformCoord(up, rotationMatrix);
-	//DirectX::XMMATRIX
-	//Translate the rotated cmaera position to the locaiton of the viewer
+	lookAt = DirectX::XMVector3TransformCoord(lookAt, rotationMatrix);
+	up = DirectX::XMVector3TransformCoord(up, rotationMatrix);
+	
+	//Translate the rotated camera position to the locaiton of the viewer
 	lookAt = position + lookAt;
 	//Create the view matrix from our updated vectors
-	this->m_viewMatrix = DirectX::XMMatrixLookAtLH(position, lookAt, up);
+	this->m_viewMatrix = DirectX::XMMatrixLookAtLH(DirectX::XMVectorSet(position.x, position.y, position.z, 1), DirectX::XMVectorSet(lookAt.x, lookAt.y, lookAt.z, 1), DirectX::XMVectorSet(up.x, up.y, up.z, 1));
 	return;
 }
 

@@ -39,14 +39,14 @@ bool GraphicsHandler::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	// Create the camera object.
-	m_Camera = new Camera;
+	m_Camera = new Camera();
 	if (!m_Camera)
 	{
 		return false;
 	}
 
 	// Set the initial position of the camera.
-	m_Camera->SetPosition(0.0f, 0.0f, -10.0f);
+	m_Camera->SetPosition(0.0f, 0.0f, -20.0f);
 
 	// Create the model object.
 	m_Model = new ObjectModel;
@@ -137,7 +137,7 @@ bool GraphicsHandler::Render()
 
 
 	// Clear the buffers to begin the scene.
-	this->m_Direct3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
+	this->m_Direct3D->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
 
 	// Generate the view matrix based on the camera's position.
 	m_Camera->Render();
