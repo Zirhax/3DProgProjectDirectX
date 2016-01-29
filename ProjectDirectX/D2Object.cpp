@@ -1,10 +1,10 @@
-#include "ObjectModel.h"
+#include "D2Object.h"
 
 
 
 
 
-ObjectModel::ObjectModel()
+D2Object::D2Object()
 {
 	m_vertexBuffer = NULL;
 	m_indexBuffer = NULL;
@@ -13,18 +13,18 @@ ObjectModel::ObjectModel()
 	m_texture = NULL;
 }
 
-ObjectModel::ObjectModel(const ObjectModel & original)
+D2Object::D2Object(const D2Object & original)
 {
 }
 
 
-ObjectModel::~ObjectModel()
+D2Object::~D2Object()
 {
 }
 
 
 //PUBLIC----------------------------------------------------------------------------------
-bool ObjectModel::Initialize(ID3D11Device * device, ID3D11DeviceContext* deviceContext, char* textureFileName)
+bool D2Object::Initialize(ID3D11Device * device, ID3D11DeviceContext* deviceContext, char* textureFileName)
 {
 	bool result = true;
 
@@ -41,7 +41,7 @@ bool ObjectModel::Initialize(ID3D11Device * device, ID3D11DeviceContext* deviceC
 	return true;
 }
 
-void ObjectModel::Shutdown()
+void D2Object::Shutdown()
 {
 	//Release the texture.
 	this->ReleaseTexture();
@@ -50,25 +50,25 @@ void ObjectModel::Shutdown()
 	return;
 }
 
-void ObjectModel::Render(ID3D11DeviceContext * deviceContext)
+void D2Object::Render(ID3D11DeviceContext * deviceContext)
 {
 	this->RenderBuffers(deviceContext);
 	return;
 }
 
-int ObjectModel::GetIndexCount()
+int D2Object::GetIndexCount()
 {
 	return this->m_indexCount;
 }
 
-ID3D11ShaderResourceView * ObjectModel::GetTexture()
+ID3D11ShaderResourceView * D2Object::GetTexture()
 {
 	return this->m_texture->GetTextureView();
 }
 
 
 //PRIVATE----------------------------------------------------------------------------------
-bool ObjectModel::InitializeBuffers(ID3D11Device * device)
+bool D2Object::InitializeBuffers(ID3D11Device * device)
 {
 	VertexUV* vertices = NULL;
 	unsigned long* indices = NULL;
@@ -166,7 +166,7 @@ bool ObjectModel::InitializeBuffers(ID3D11Device * device)
 	return true;
 }
 
-void ObjectModel::CleanBuffers()
+void D2Object::CleanBuffers()
 {
 	//Release the vertex buffer
 	if (this->m_vertexBuffer != NULL)
@@ -184,7 +184,7 @@ void ObjectModel::CleanBuffers()
 	return;
 }
 
-void ObjectModel::RenderBuffers(ID3D11DeviceContext * deviceContext)
+void D2Object::RenderBuffers(ID3D11DeviceContext * deviceContext)
 {
 	unsigned int stride = 0;
 	unsigned int offset = 0;
@@ -203,7 +203,7 @@ void ObjectModel::RenderBuffers(ID3D11DeviceContext * deviceContext)
 	return;
 }
 
-bool ObjectModel::LoadTexture(ID3D11Device * device, ID3D11DeviceContext * deviceContext, char * fileName)
+bool D2Object::LoadTexture(ID3D11Device * device, ID3D11DeviceContext * deviceContext, char * fileName)
 {
 	bool result = false;
 
@@ -224,7 +224,7 @@ bool ObjectModel::LoadTexture(ID3D11Device * device, ID3D11DeviceContext * devic
 	return true;
 }
 
-void ObjectModel::ReleaseTexture()
+void D2Object::ReleaseTexture()
 {
 	//Release the texture object.
 	if (this->m_texture != NULL)

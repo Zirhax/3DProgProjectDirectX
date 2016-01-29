@@ -50,7 +50,7 @@ bool GraphicsHandler::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	m_Camera->SetPosition(0.0f, 0.0f, -5.0f);
 
 	// Create the model object.
-	m_Model = new ObjectModel();
+	m_Model = new D2Object();
 	if (!m_Model)
 	{
 		return false;
@@ -65,7 +65,7 @@ bool GraphicsHandler::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	// Create the TextureShader object.
-	m_TextureShader = new ShaderTexture();
+	m_TextureShader = new TextureHandler();
 	if (!this->m_TextureShader)
 	{
 		return false;
@@ -75,7 +75,7 @@ bool GraphicsHandler::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	result = this->m_TextureShader->Initialize(m_Direct3D->GetDevice(), hwnd);
 	if (!result)
 	{
-		MessageBox(hwnd, L"Could not initialize the ShaderTexture object.", L"Error", MB_OK);
+		MessageBox(hwnd, L"Could not initialize the TextureHandler object.", L"Error", MB_OK);
 		return false;
 	}
 

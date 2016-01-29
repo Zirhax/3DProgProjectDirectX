@@ -1,10 +1,10 @@
-#ifndef _OBJECTMODEL_H_
-#define _OBJECTMODEL_H_
+#ifndef _D2OBJECT_H_
+#define _D2OBJECT_H_
 #include <d3d11.h>
 #include "SimpleMath.h"
 #include "StructLibrary.h"
 #include "TextureObject.h"
-class ObjectModel
+class D2Object
 {
 private:
 	//Remember that the bufferstructure is defined using the buffer-description at creation.
@@ -21,9 +21,9 @@ private:
 	bool LoadTexture(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* fileName);
 	void ReleaseTexture();
 public:
-	ObjectModel();
-	ObjectModel(const ObjectModel& original);
-	virtual ~ObjectModel();
+	D2Object();
+	D2Object(const D2Object& original);
+	virtual ~D2Object();
 
 	bool Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* textureFileName);
 	void Shutdown();
