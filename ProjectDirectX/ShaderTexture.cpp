@@ -42,7 +42,7 @@ void ShaderTexture::Shutdown()
 	return;
 }
 
-bool ShaderTexture::Render(ID3D11DeviceContext * deviceContext, int indexCount, MatrixBufferStruct matrices, ID3D11ShaderResourceView * resourceView)
+bool ShaderTexture::Render(ID3D11DeviceContext * deviceContext, int indexCount, MatrixBufferStruct &matrices, ID3D11ShaderResourceView * resourceView)
 {
 	bool result = false;
 
@@ -59,7 +59,8 @@ bool ShaderTexture::Render(ID3D11DeviceContext * deviceContext, int indexCount, 
 	return true;
 }
 
-bool ShaderTexture::Render(ID3D11DeviceContext * deviceContext, int indexCount, Matrix world, Matrix view, Matrix projection, ID3D11ShaderResourceView * resourceView)
+
+bool ShaderTexture::Render(ID3D11DeviceContext * deviceContext, int indexCount, Matrix & world, Matrix & view, Matrix & projection, ID3D11ShaderResourceView * resourceView)
 {
 
 	return this->Render(deviceContext, indexCount, MatrixBufferStruct{world, view, projection}, resourceView);
@@ -325,7 +326,7 @@ void ShaderTexture::OutputShaderErrorMessage(ID3D10Blob * errorMessage, HWND hwn
 
 }
 
-bool ShaderTexture::SetShaderParameters(ID3D11DeviceContext * deviceContext, MatrixBufferStruct matrices, ID3D11ShaderResourceView * resourceView)
+bool ShaderTexture::SetShaderParameters(ID3D11DeviceContext * deviceContext, MatrixBufferStruct & matrices, ID3D11ShaderResourceView * resourceView)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;

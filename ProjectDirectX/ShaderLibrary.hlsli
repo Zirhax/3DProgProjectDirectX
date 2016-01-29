@@ -28,6 +28,12 @@ struct PS_IN
 	float4 Color : COLOR;
 };
 
+struct PS_IN_TEST
+{
+	float4 Pos : SV_POSITION;
+	float2 UV : TEXCOORD;
+};
+
 struct PS_IN_UV
 {
 	float4 Pos : SV_POSITION;
