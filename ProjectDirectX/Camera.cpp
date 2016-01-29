@@ -85,9 +85,9 @@ void Camera::Render()	//Builds and updates the view-matrix
 	//Set where the camera is looking at by default.
 	lookAt = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 	//Set the yaw (Y axis), pitch (X axis), and roll (Z axis) rotations in radians.
-	pitch = this->m_rotation.x * 0.0174532925f;
-	yaw = this->m_rotation.y * 0.0174532925f;
-	roll = this->m_rotation.z * 0.0174532925f;
+	pitch = this->m_rotation.x * DEGREES_TO_RADIANS;
+	yaw = this->m_rotation.y * DEGREES_TO_RADIANS;
+	roll = this->m_rotation.z * DEGREES_TO_RADIANS;
 
 	//Create the rotation matrix
 	rotationMatrix = DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll);
@@ -96,7 +96,7 @@ void Camera::Render()	//Builds and updates the view-matrix
 	lookAt = DirectX::XMVector3TransformCoord(lookAt, rotationMatrix);
 	up = DirectX::XMVector3TransformCoord(up, rotationMatrix);
 	
-	//Translate the rotated camera position to the locaiton of the viewer
+	//Translate the rotated camera position to the location of the viewer
 	lookAt = position + lookAt;
 	//Create the view matrix from our updated vectors
 	this->m_viewMatrix = DirectX::XMMatrixLookAtLH(DirectX::XMVectorSet(position.x, position.y, position.z, 1), DirectX::XMVectorSet(lookAt.x, lookAt.y, lookAt.z, 1), DirectX::XMVectorSet(up.x, up.y, up.z, 1));

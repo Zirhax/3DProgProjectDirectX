@@ -77,8 +77,8 @@ bool ObjectModel::InitializeBuffers(ID3D11Device * device)
 	HRESULT result;
 	
 	//Set the number of vertices in the vertex array.
-	this->m_vertexCount = 4;
-	this->m_indexCount = 4;
+	this->m_vertexCount = 3;
+	this->m_indexCount = 3;
 
 	//Create buffers and check for successfull completion.
 	//Create the vertex array. Fun part :D
@@ -198,7 +198,7 @@ void ObjectModel::RenderBuffers(ID3D11DeviceContext * deviceContext)
 	deviceContext->IASetIndexBuffer(this->m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 	//Actually set the topology
-	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	return;
 }

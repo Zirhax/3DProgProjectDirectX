@@ -138,7 +138,7 @@ bool GraphicsHandler::Render()
 
 
 	// Clear the buffers to begin the scene.
-	this->m_Direct3D->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
+	this->m_Direct3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Generate the view matrix based on the camera's position.
 	m_Camera->Render();
@@ -151,7 +151,7 @@ bool GraphicsHandler::Render()
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	m_Model->Render(this->m_Direct3D->GetDeviceContext());
 
-	// Render the model using the color shader.
+	// Render the model using the texture shader.
 	result = this->m_TextureShader->Render(this->m_Direct3D->GetDeviceContext(), this->m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, m_Model->GetTexture());
 	if (!result)
 	{

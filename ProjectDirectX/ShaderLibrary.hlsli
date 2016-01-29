@@ -6,7 +6,7 @@ struct VS_IN
 
 struct VS_IN_UV
 {
-	float3 Pos : POSITION;
+	float4 Pos : POSITION;
 	float2 UV : TEXCOORD;
 };
 

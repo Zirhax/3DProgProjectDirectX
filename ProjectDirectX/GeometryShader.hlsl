@@ -17,7 +17,7 @@ void main(
 		PS_IN_UV element = (PS_IN_UV)0;
 		element.Pos = input[i].Pos;
 		element.UV = input[i].UV;
-		element.Normal = float4(cross(input[0].Pos - input[1].Pos, input[0].Pos - input[2].Pos), 0);
+		element.Normal = float4(cross(input[1].Pos - input[0].Pos, input[2].Pos - input[0].Pos), 0);
 		element.Normal = mul(element.Normal, worldMatrix);
 		element.Pos = mul(element.Pos, worldMatrix);
 		element.Pos = mul(element.Pos, viewMatrix);
@@ -25,6 +25,7 @@ void main(
 
 		outputStream.Append(element);
 	}
+	outputStream.RestartStrip();
 }
 
 //[maxvertexcount(3)]
