@@ -47,10 +47,10 @@ bool GraphicsHandler::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	// Set the initial position of the camera.
-	m_Camera->SetPosition(0.0f, 0.0f, -20.0f);
+	m_Camera->SetPosition(0.0f, 0.0f, -5.0f);
 
 	// Create the model object.
-	m_Model = new ObjectModel;
+	m_Model = new ObjectModel();
 	if (!m_Model)
 	{
 		return false;
@@ -134,7 +134,7 @@ bool GraphicsHandler::Frame()
 bool GraphicsHandler::Render()
 {
 	Matrix viewMatrix, projectionMatrix, worldMatrix;
-	bool result;
+	bool result = false;
 
 
 	// Clear the buffers to begin the scene.
@@ -144,8 +144,8 @@ bool GraphicsHandler::Render()
 	m_Camera->Render();
 
 	// Get the world, view, and projection matrices from the camera and d3d objects.
-	this->m_Camera->GetViewMatrix(viewMatrix);
 	this->m_Direct3D->GetWorldMatrix(worldMatrix);
+	this->m_Camera->GetViewMatrix(viewMatrix);
 	this->m_Direct3D->GetProjectionMatrix(projectionMatrix);
 
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.

@@ -38,7 +38,7 @@ bool ObjectModel::Initialize(ID3D11Device * device, ID3D11DeviceContext* deviceC
 	if (!result)
 		return false;
 
-	return result;
+	return true;
 }
 
 void ObjectModel::Shutdown()
