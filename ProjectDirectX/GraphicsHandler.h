@@ -4,7 +4,7 @@
 #include "d3dclass.h"
 #include "Camera.h"
 #include "ObjectModel.h"
-#include "ShaderHandler.h"
+#include "ShaderTexture.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
@@ -19,7 +19,8 @@ private:
 	bool Render();
 	Camera* m_Camera;
 	ObjectModel* m_Model;
-	ShaderHandler* m_shaderHandler;
+	ShaderTexture* m_TextureShader;
+	//ShaderHandler* m_shaderHandler;
 public:
 	GraphicsHandler();
 	GraphicsHandler(const GraphicsHandler& other);

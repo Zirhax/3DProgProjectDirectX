@@ -10,6 +10,7 @@ ObjectModel::ObjectModel()
 	m_indexBuffer = NULL;
 	m_vertexCount = 0;
 	m_indexCount = 0;
+	m_texture = NULL;
 }
 
 ObjectModel::ObjectModel(const ObjectModel & original)
@@ -23,19 +24,28 @@ ObjectModel::~ObjectModel()
 
 
 //PUBLIC----------------------------------------------------------------------------------
-bool ObjectModel::Initialize(ID3D11Device * device)
+bool ObjectModel::Initialize(ID3D11Device * device, ID3D11DeviceContext* deviceContext, char* textureFileName)
 {
 	bool result = true;
 
 	//Initialize the vertex and index buffer
 	result = this->InitializeBuffers(device);
+	if (!result)
+		return false;
+
+	//Load the texture
+	result = LoadTexture(device, deviceContext, textureFileName);
+	if (!result)
+		return false;
 
 	return result;
 }
 
 void ObjectModel::Shutdown()
 {
-	//Release the vertex and index buffers.
+	//Release the texture.
+	this->ReleaseTexture();
+	//Release the buffers.
 	this->CleanBuffers();
 	return;
 }
@@ -51,11 +61,16 @@ int ObjectModel::GetIndexCount()
 	return this->m_indexCount;
 }
 
+ID3D11ShaderResourceView * ObjectModel::GetTexture()
+{
+	return this->m_texture->GetTextureView();
+}
+
 
 //PRIVATE----------------------------------------------------------------------------------
 bool ObjectModel::InitializeBuffers(ID3D11Device * device)
 {
-	Vertex* vertices = NULL;
+	VertexUV* vertices = NULL;
 	unsigned long* indices = NULL;
 	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
@@ -67,7 +82,7 @@ bool ObjectModel::InitializeBuffers(ID3D11Device * device)
 
 	//Create buffers and check for successfull completion.
 	//Create the vertex array. Fun part :D
-	vertices = new Vertex[this->m_vertexCount];
+	vertices = new VertexUV[this->m_vertexCount];
 	if (!vertices)
 	{
 		return false;
@@ -81,13 +96,16 @@ bool ObjectModel::InitializeBuffers(ID3D11Device * device)
 	//This is where the .obj files and material files will be loaded into the structures and thus subresources
 	//Load the vertex data
 	vertices[0].position = Vector3(-1.0f, -1.0f, 0.0f);
-	vertices[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+	vertices[0].UV = Vector2(0.0f, 1.0f);
+	//vertices[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 
 	vertices[1].position = Vector3(0.0f, 1.0f, 0.0f);
-	vertices[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[1].UV = Vector2(0.5f, 0.0f);
+	//vertices[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 
 	vertices[2].position = Vector3(1.0f, -1.0f, 0.0f);
-	vertices[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+	vertices[2].UV = Vector2(1.0f, 1.0f);
+	//vertices[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 
 	/*vertices[3].position = Vector3(1.0f, 1.0f, 0.0f);
 	vertices[3].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);*/
@@ -101,7 +119,7 @@ bool ObjectModel::InitializeBuffers(ID3D11Device * device)
 
 	// Set up the description of the static vertex buffer.
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(Vertex) * this->m_vertexCount;
+	vertexBufferDesc.ByteWidth = sizeof(VertexUV) * this->m_vertexCount;
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vertexBufferDesc.CPUAccessFlags = 0;
 	vertexBufferDesc.MiscFlags = 0;
@@ -171,7 +189,7 @@ void ObjectModel::RenderBuffers(ID3D11DeviceContext * deviceContext)
 	unsigned int stride = 0;
 	unsigned int offset = 0;
 
-	stride = sizeof(Vertex);
+	stride = sizeof(VertexUV);
 
 	//Set the vertex buffer for the input assembler.
 	deviceContext->IASetVertexBuffers(0, 1, &this->m_vertexBuffer, &stride, &offset);
@@ -181,6 +199,40 @@ void ObjectModel::RenderBuffers(ID3D11DeviceContext * deviceContext)
 
 	//Actually set the topology
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+	return;
+}
+
+bool ObjectModel::LoadTexture(ID3D11Device * device, ID3D11DeviceContext * deviceContext, char * fileName)
+{
+	bool result = false;
+
+	//Create the texture object
+	this->m_texture = new TextureObject();
+	if (this->m_texture == NULL)
+	{
+		return false;
+	}
+
+	//Now initialize the texture object
+	result = m_texture->Initialize(device, deviceContext, fileName);
+	if (!result)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void ObjectModel::ReleaseTexture()
+{
+	//Release the texture object.
+	if (this->m_texture != NULL)
+	{
+		m_texture->Shutdown();
+		delete m_texture;
+		m_texture = NULL;
+	}
 
 	return;
 }

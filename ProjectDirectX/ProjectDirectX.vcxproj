@@ -149,7 +149,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectModel.cpp" />
     <ClCompile Include="ShaderHandler.cpp" />
+    <ClCompile Include="ShaderTexture.cpp" />
     <ClCompile Include="System.cpp" />
+    <ClCompile Include="TextureObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -158,9 +160,11 @@
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="ObjectModel.h" />
     <ClInclude Include="ShaderHandler.h" />
+    <ClInclude Include="ShaderTexture.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="StructLibrary.h" />
     <ClInclude Include="System.h" />
+    <ClInclude Include="TextureObject.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="GeometryShader.hlsl">
