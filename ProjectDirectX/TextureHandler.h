@@ -1,5 +1,5 @@
-#ifndef _SHADERTEXTURE_H_
-#define _SHADERTEXTURE_H_
+#ifndef _TEXTUREHANDLER_H_
+#define _TEXTUREHANDLER_H_
 
 
 #include <d3d11.h>
@@ -14,7 +14,7 @@
 using namespace std;
 using namespace DirectX::SimpleMath;
 
-class ShaderTexture
+class TextureHandler
 {
 private:
 	ID3D11VertexShader* m_vertexShader;
@@ -31,9 +31,9 @@ private:
 	bool SetShaderParameters(ID3D11DeviceContext* deviceContext, MatrixBufferStruct & matrices, ID3D11ShaderResourceView* resourceView);
 	void RenderShader(ID3D11DeviceContext* deviceContext, int indexCount);
 public:
-	ShaderTexture();
-	ShaderTexture(const ShaderTexture& original);
-	virtual ~ShaderTexture();
+	TextureHandler();
+	TextureHandler(const TextureHandler& original);
+	virtual ~TextureHandler();
 
 	bool Initialize(ID3D11Device* device, HWND hwnd);
 	void Shutdown();

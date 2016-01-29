@@ -3,8 +3,8 @@
 
 #include "d3dclass.h"
 #include "Camera.h"
-#include "ObjectModel.h"
-#include "ShaderTexture.h"
+#include "D2Object.h"
+#include "TextureHandler.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
@@ -18,8 +18,8 @@ private:
 	D3DClass* m_Direct3D;
 	bool Render();
 	Camera* m_Camera;
-	ObjectModel* m_Model;
-	ShaderTexture* m_TextureShader;
+	D2Object* m_Model;
+	TextureHandler* m_TextureShader;
 	//ShaderHandler* m_shaderHandler;
 public:
 	GraphicsHandler();
