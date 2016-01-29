@@ -18,6 +18,14 @@ struct VertexUV
 	Vector2 UV;
 };
 
+struct VertexUVN
+{
+	Vector3 position;
+	Vector2 color;
+	Vector3 normal;
+};
+
+
 struct MatrixBufferStruct
 {
 	Matrix world;
