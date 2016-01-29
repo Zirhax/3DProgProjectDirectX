@@ -381,5 +381,7 @@ void ShaderTexture::RenderShader(ID3D11DeviceContext * deviceContext, int indexC
 
 	deviceContext->PSSetSamplers(0, 1, &this->m_samplerState);
 
+	deviceContext->DrawIndexed(indexCount, 0, 0);
+	
 	return;
 }

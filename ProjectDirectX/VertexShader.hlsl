@@ -23,7 +23,9 @@ GS_IN_UV main(VS_IN_UV input)
 //GS_IN main(VS_IN input)
 //{
 //	GS_IN output = (PS_IN)0;
-//
+//	output.Pos.x = input.Pos.x;
+//	output.Pos.y = input.Pos.y;
+//	output.Pos.z = input.Pos.z;
 //	output.Pos = float4(input.Pos, 1);
 //	output.Color = input.Color;
 //
