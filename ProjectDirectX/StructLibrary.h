@@ -18,7 +18,7 @@ struct VertexUV
 	Vector2 UV;
 };
 
-struct VertexUVN
+struct VertexModel
 {
 	Vector3 position;
 	Vector2 color;

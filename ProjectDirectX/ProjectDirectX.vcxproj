@@ -160,7 +160,6 @@
     <ClInclude Include="GraphicsHandler.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="D2Object.h" />
-    <ClInclude Include="ShaderHandler.h" />
     <ClInclude Include="TextureHandler.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="StructLibrary.h" />

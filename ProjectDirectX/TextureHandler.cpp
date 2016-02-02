@@ -25,9 +25,9 @@ TextureHandler::~TextureHandler()
 bool TextureHandler::Initialize(ID3D11Device * device, HWND hwnd)
 {
 	bool result = false;
-	WCHAR* vsName = L"VertexShader.hlsl";
-	WCHAR* gsName = L"GeometryShader.hlsl";
-	WCHAR* psName = L"PixelShader.hlsl";
+	WCHAR* vsName = (WCHAR*)VERTEXSHADER_NAME_WCHAR;
+	WCHAR* gsName = (WCHAR*)GEOMETRYSHADER_NAME_WCHAR;
+	WCHAR* psName = (WCHAR*)PIXELSHADER_NAME_WCHAR;
 	//Initialize the vertex and pixel shaders
 	result = this->InitializeShader(device, hwnd, vsName, gsName, psName);
 
