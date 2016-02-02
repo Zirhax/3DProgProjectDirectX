@@ -17,8 +17,15 @@ GS_IN_UV main(VS_IN_UV input)
 	output.Pos.w = 1.0f;
 
 	output.UV = input.UV;
+
+	//Calculate normal on worldMatrix and then normalize it
+	output.Normal = mul(input.Normal, worldMatrix);
+	output.Normal = normalize(output.Normal);
+
 	return output;
 }
+
+
 
 //GS_IN main(VS_IN input)
 //{

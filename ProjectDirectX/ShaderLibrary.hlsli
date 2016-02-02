@@ -7,6 +7,7 @@ struct VS_IN
 struct VS_IN_UV
 {
 	float4 Pos : POSITION;
+	float4 Normal : NORMAL;
 	float2 UV : TEXCOORD;
 };
 
@@ -19,6 +20,7 @@ struct GS_IN
 struct GS_IN_UV
 {
 	float4 Pos : SV_POSITION;
+	float4 Normal : NORMAL;
 	float2 UV : TEXCOORD;
 };
 

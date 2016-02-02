@@ -13,12 +13,35 @@ SamplerState samplerType;
 //	return m_color;
 //}
 
+cbuffer LightBuffer
+{
+	float4 diffColor;
+	float3 lightDir;
+	float padding;
+};
+
 float4 main(PS_IN_UV input) : SV_TARGET
 {
 	float4 m_color = (float4)0;
+	float4 textureColor = (float4)0;
+	float3 lightDirection = (float3)0;
+	float lightInt = (float)0;
 
 	//Sample the pixel color from the color texture
-	m_color = c_text.Sample(samplerType, input.UV);
+	textureColor = c_text.Sample(samplerType, input.UV);
+
+	//Invert light direction
+	lightDirection = -lightDir;
+
+	//Calculate the amount of light on the pixel
+	lightInt = saturate(dot(input.Normal, lightDirection));
+
+	//Combine lightIntensity and diffuseColor
+	m_color = saturate(diffColor * lightInt);
+	
+	//Multiply texture pixel and the color
+	m_color = m_color * textureColor;
+
 	return m_color;
 }
 
