@@ -42,6 +42,13 @@ struct TargaHeader
 	unsigned char data2;
 };
 
+enum FactoryObjectType
+{
+	DEFAULT = 0,
+	OBJ = 1
+};
+
+
 // input layout (verified using vertex shader)
 //static const D3D11_INPUT_ELEMENT_DESC inputDescColor[] = {
 //	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
