@@ -230,7 +230,6 @@ bool D3Object::LoadModel(char * fileName)
 	vector<Vector3> vertices;
 	vector<Vector3> normals;
 	vector<Vector2> UV;
-	vector<Vector3[3]> indices;
 	vector<VertexModel> vertexData;
 	Vector3 vtx = { 0, 0, 0 }, vn = { 0, 0, 0 };
 	Vector2 vt = { 0, 0 };
@@ -281,13 +280,13 @@ bool D3Object::LoadModel(char * fileName)
 			sscanf(pos, "%s %i/%i/%i %i/%i/%i %i/%i/%i\n", &special, &faceIndices[0].x, &faceIndices[0].y, &faceIndices[0].z,
 				&faceIndices[1].x, &faceIndices[1].y, &faceIndices[1].z,
 				&faceIndices[2].x, &faceIndices[2].y, &faceIndices[2].z);
-			indices.push_back(faceIndices);
+
 		}
 	}
 
 
 	fileIn.close();
-	return false;
+	return true;
 }
 
 void D3Object::ReleaseModel()
