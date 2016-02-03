@@ -16,7 +16,6 @@ bool ObjectFactory::CreateObject(D3Object * storeIn, char * fileName, FactoryObj
 	bool result = false;
 	switch (objectFormat)
 	{
-	case DEFAULT:
 	case OBJ:
 		result = this->ReadOBJ(storeIn, fileName);
 		break;
@@ -80,16 +79,18 @@ bool ObjectFactory::ReadOBJ(D3Object * storeIn, char * fileName)
 			strncpy(temp, line2.c_str(), sizeof(temp));
 			temp[sizeof(temp) - 1] = 0;
 			char* pos = strstr(temp, "f ");
-			Vector3 faceIndices[3];
-			sscanf(pos, "%s %i/%i/%i %i/%i/%i %i/%i/%i\n", &special, &faceIndices[0].x, &faceIndices[0].y, &faceIndices[0].z,
-				&faceIndices[1].x, &faceIndices[1].y, &faceIndices[1].z,
-				&faceIndices[2].x, &faceIndices[2].y, &faceIndices[2].z);
-			//VertexModel tempModelData = {vertices[faceIndices[0].x - 1], UV[faceIndices[0].x], normals[faceIndices[0].z]};
+			struct IndexStruct { int v; int vt; int vn; } faceIndices[3];
+			sscanf(pos, "%s %i/%i/%i %i/%i/%i %i/%i/%i\n", &special, &faceIndices[0].v, &faceIndices[0].vt, &faceIndices[0].vn,
+				&faceIndices[1].v, &faceIndices[1].vt, &faceIndices[1].vn,
+				&faceIndices[2].v, &faceIndices[2].vt, &faceIndices[2].vn);
+			//VertexModel tempModelData = {vertices[faceIndices[0].v - 1], UV[faceIndices[0].v], normals[faceIndices[0].vn]};
 			for (int i = 0; i < 3; i++)
-				vertexData.push_back({ vertices[faceIndices[i].x - 1], UV[faceIndices[i].x - 1], normals[faceIndices[i].z - 1] });
+				vertexData.push_back({ vertices[faceIndices[i].v - 1], UV[faceIndices[i].v - 1], normals[faceIndices[i].vn - 1] });
 		}
 	}
-
 	fileIn.close();
+
+
+
 	return true;
 }

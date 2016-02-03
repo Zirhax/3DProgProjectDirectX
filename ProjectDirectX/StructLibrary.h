@@ -55,13 +55,11 @@ struct JPEGHeader
 
 enum FactoryObjectFormat
 {
-	DEFAULT = 0,
-	OBJ = 1
+	OBJ
 };
 
 enum TextureFormat
 {
-	DEFAULT = 0,
 	TARGA,
 	PNG,
 	JPEG

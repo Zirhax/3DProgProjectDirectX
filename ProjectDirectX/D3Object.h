@@ -23,7 +23,6 @@ public:
 	D3Object();
 	D3Object(const D3Object& original);
 	~D3Object();
-
 	bool Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* modelFileName, char* textureFileName);
 	void Shutdown();
 	void Render(ID3D11DeviceContext* deviceContext);	//Move model geometry to device context / Graphicscard

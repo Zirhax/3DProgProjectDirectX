@@ -233,7 +233,7 @@ bool D3Object::LoadModel(char * fileName)
 	vector<VertexModel> vertexData;
 	Vector3 vtx = { 0, 0, 0 }, vn = { 0, 0, 0 };
 	Vector2 vt = { 0, 0 };
-	
+
 	fileIn.open(fileName, ios::in);
 	if (!fileIn.is_open())
 	{
@@ -276,16 +276,25 @@ bool D3Object::LoadModel(char * fileName)
 			strncpy(temp, line2.c_str(), sizeof(temp));
 			temp[sizeof(temp) - 1] = 0;
 			char* pos = strstr(temp, "f ");
-			Vector3 faceIndices[3];
-			sscanf(pos, "%s %i/%i/%i %i/%i/%i %i/%i/%i\n", &special, &faceIndices[0].x, &faceIndices[0].y, &faceIndices[0].z,
-				&faceIndices[1].x, &faceIndices[1].y, &faceIndices[1].z,
-				&faceIndices[2].x, &faceIndices[2].y, &faceIndices[2].z);
-
+			struct IndexStruct { int v; int vt; int vn; } faceIndices[3];
+			sscanf(pos, "%s %i/%i/%i %i/%i/%i %i/%i/%i\n", &special, &faceIndices[0].v, &faceIndices[0].vt, &faceIndices[0].vn,
+				&faceIndices[1].v, &faceIndices[1].vt, &faceIndices[1].vn,
+				&faceIndices[2].v, &faceIndices[2].vt, &faceIndices[2].vn);
+			//VertexModel tempModelData = {vertices[faceIndices[0].v - 1], UV[faceIndices[0].v], normals[faceIndices[0].vn]};
+			for (int i = 0; i < 3; i++)
+				vertexData.push_back({ vertices[faceIndices[i].v - 1], UV[faceIndices[i].v - 1], normals[faceIndices[i].vn - 1] });
 		}
 	}
-
-
 	fileIn.close();
+
+	this->m_vertexCount = vertexData.size();
+	this->m_indexCount = vertices.size();
+	this->m_model = new VertexModel[this->m_vertexCount];
+	for (int j = 0; j < m_vertexCount; j++)
+	{
+		this->m_model[j] = vertexData[j];
+	}
+
 	return true;
 }
 
