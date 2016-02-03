@@ -13,12 +13,17 @@ ObjectFactory::~ObjectFactory()
 
 bool ObjectFactory::CreateObject(D3Object * storeIn, char * fileName, FactoryObjectFormat objectFormat)
 {
+	bool result = false;
 	switch (objectFormat)
 	{
+	case DEFAULT:
+	case OBJ:
+		result = this->ReadOBJ(storeIn, fileName);
+		break;
 	default:
 		break;
 	}
-	return true;
+	return result;
 }
 
 bool ObjectFactory::ReadOBJ(D3Object * storeIn, char * fileName)
