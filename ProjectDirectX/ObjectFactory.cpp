@@ -11,7 +11,17 @@ ObjectFactory::~ObjectFactory()
 {
 }
 
-bool ObjectFactory::CreateObject(D3Object * storeIn, char * fileName)
+bool ObjectFactory::CreateObject(D3Object * storeIn, char * fileName, FactoryObjectFormat objectFormat)
+{
+	switch (objectFormat)
+	{
+	default:
+		break;
+	}
+	return true;
+}
+
+bool ObjectFactory::ReadOBJ(D3Object * storeIn, char * fileName)
 {
 	ifstream fileIn;
 	string special = "", line = "", line2 = "";
@@ -76,5 +86,5 @@ bool ObjectFactory::CreateObject(D3Object * storeIn, char * fileName)
 	}
 
 	fileIn.close();
-	return false;
+	return true;
 }

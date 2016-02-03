@@ -18,8 +18,8 @@ class ObjectFactory
 public:
 	ObjectFactory();
 	virtual ~ObjectFactory();
-	bool CreateObject(D3Object* storeIn, char* fileName);
-
+	bool CreateObject(D3Object* storeIn, char* fileName, FactoryObjectFormat objectFormat);
+	bool ReadOBJ(D3Object* storeIn, char* fileName);
 };
 
 #endif

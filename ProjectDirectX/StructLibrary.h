@@ -43,12 +43,29 @@ struct TargaHeader
 	unsigned char data2;
 };
 
-enum FactoryObjectType
+struct PngHeader
+{
+
+};
+
+struct JPEGHeader
+{
+
+};
+
+enum FactoryObjectFormat
 {
 	DEFAULT = 0,
 	OBJ = 1
 };
 
+enum TextureFormat
+{
+	DEFAULT = 0,
+	TARGA,
+	PNG,
+	JPEG
+};
 
 // input layout (verified using vertex shader)
 //static const D3D11_INPUT_ELEMENT_DESC inputDescColor[] = {
