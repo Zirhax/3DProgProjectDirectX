@@ -226,6 +226,7 @@ bool D3Object::LoadModel(char * fileName)
 {
 	ifstream fileIn;
 	string special = "", line = "", line2 = "";
+	char specialChar[10];
 	istringstream inputString;
 	vector<Vector3> vertices;
 	vector<Vector3> normals;
@@ -277,10 +278,10 @@ bool D3Object::LoadModel(char * fileName)
 			strncpy(temp, line2.c_str(), sizeof(temp));
 			temp[sizeof(temp) - 1] = 0;
 			struct IndexStruct { int v; int vt; int vn; } faceIndices[3];
-			sscanf(temp, "%s %i/%i/%i %i/%i/%i %i/%i/%i\n", &special, &faceIndices[0].v, &faceIndices[0].vt, &faceIndices[0].vn,
+			sscanf(temp, "%s %i/%i/%i %i/%i/%i %i/%i/%i\n", specialChar, &faceIndices[0].v, &faceIndices[0].vt, &faceIndices[0].vn,
 				&faceIndices[1].v, &faceIndices[1].vt, &faceIndices[1].vn,
 				&faceIndices[2].v, &faceIndices[2].vt, &faceIndices[2].vn);
-			//VertexModel tempModelData = {vertices[faceIndices[0].v - 1], UV[faceIndices[0].v], normals[faceIndices[0].vn]};
+			//VertexModel tempModelData = {vertices[&faceIndices[0].v - 1], UV[&faceIndices[0].v], normals[&faceIndices[0].vn]};
 			for (int i = 0; i < 3; i++)
 				vertexData.push_back({ vertices[faceIndices[i].v - 1], UV[faceIndices[i].v - 1], normals[faceIndices[i].vn - 1] });
 
