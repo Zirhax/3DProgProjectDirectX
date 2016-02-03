@@ -4,6 +4,7 @@
 #include "d3dclass.h"
 #include "Camera.h"
 #include "D2Object.h"
+#include "D3Object.h"
 #include "TextureHandler.h"
 
 const bool FULL_SCREEN = false;
@@ -18,7 +19,7 @@ private:
 	D3DClass* m_Direct3D;
 	bool Render();
 	Camera* m_Camera;
-	D2Object* m_Model;
+	D3Object* m_Model;
 	TextureHandler* m_TextureShader;
 	//ShaderHandler* m_shaderHandler;
 public:
