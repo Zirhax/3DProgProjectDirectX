@@ -6,6 +6,7 @@ using namespace DirectX::SimpleMath;
 
 static const float DEGREES_TO_RADIANS = 0.0174532925f;
 
+
 struct Vertex
 {
 	Vector3 position;
@@ -21,7 +22,7 @@ struct VertexUV
 struct VertexModel
 {
 	Vector3 position;
-	Vector2 color;
+	Vector2 UV;
 	Vector3 normal;
 };
 
