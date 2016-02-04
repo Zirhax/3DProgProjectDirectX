@@ -193,8 +193,8 @@ bool TextureHandler::InitializeShader(ID3D11Device * device, HWND hwnd, WCHAR * 
 		return false;
 	}
 #pragma endregion Creating shader buffers
-	unsigned int numElements = ARRAYSIZE(INPUT_DESC_UV);
-	hResult = device->CreateInputLayout(INPUT_DESC_UV, numElements, pVS->GetBufferPointer(), pVS->GetBufferSize(), &m_layout);
+	unsigned int numElements = ARRAYSIZE(INPUT_DESC_3D);
+	hResult = device->CreateInputLayout(INPUT_DESC_3D, numElements, pVS->GetBufferPointer(), pVS->GetBufferSize(), &m_layout);
 	if (FAILED(hResult))
 	{
 		return false;

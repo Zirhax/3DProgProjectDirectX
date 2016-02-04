@@ -251,6 +251,9 @@ bool D3Object::LoadModel(char * fileName)
 
 	while (std::getline(fileIn, line2))
 	{
+		strncpy(temp, line2.c_str(), sizeof(temp));
+		temp[sizeof(temp) - 1] = 0;
+
 		inputString.str(line2);
 		if (line2.substr(0, 2) == "v ")
 		{
@@ -261,42 +264,42 @@ bool D3Object::LoadModel(char * fileName)
 		else if (line2.substr(0, 2) == "vt")
 		{
 			// Vertex UV
-			inputString >> special >> vt.x >> vt.y;
+			sscanf(temp, "%s %f %f\n", specialChar, &vt.x, &vt.y);
+			//inputString >> special >> vt.x >> vt.y;
 			UV.push_back(vt);
 		}
 		else if (line2.substr(0, 2) == "vn")
 		{
-			// Vertex Normal
-			inputString >> special >> vn.x >> vn.y >> vn.z;
+			// Vertex Norma
+			sscanf(temp, "%s %f %f %f\n", specialChar, &vn.x, &vn.y, &vn.z);
+			//inputString >> special >> vn.x >> vn.y >> vn.z;
 			normals.push_back(vn);
 		}
 		else if (line2.substr(0, 2) == "g ")
 		{
 			//Group name
 		}
-		else if (line2.substr(0, 7) == "mtllib ")
+		else if (line2.substr(0, 8) == "mtllib ")
 		{
 			//Material name
 		}
 		else if (line2.substr(0, 2) == "f ")
 		{
 			//Vertex Normal Indices in format f v1/vt1/vn1
-			strncpy(temp, line2.c_str(), sizeof(temp));
-			temp[sizeof(temp) - 1] = 0;
 			struct IndexStruct { int v; int vt; int vn; } faceIndices[3];
 			sscanf(temp, "%s %i/%i/%i %i/%i/%i %i/%i/%i\n", specialChar, &faceIndices[0].v, &faceIndices[0].vt, &faceIndices[0].vn,
 				&faceIndices[1].v, &faceIndices[1].vt, &faceIndices[1].vn,
 				&faceIndices[2].v, &faceIndices[2].vt, &faceIndices[2].vn);
 			//VertexModel tempModelData = {vertices[&faceIndices[0].v - 1], UV[&faceIndices[0].v], normals[&faceIndices[0].vn]};
 			for (int i = 0; i < 3; i++)
-				vertexData.push_back({ vertices[faceIndices[i].v - 1], UV[faceIndices[i].v - 1], normals[faceIndices[i].vn - 1] });
+				vertexData.push_back({ vertices[faceIndices[i].v - 1], UV[faceIndices[i].vt - 1], normals[faceIndices[i].vn - 1] });
 
 		}
 	}
 	fileIn.close();
 
 	this->m_vertexCount = vertexData.size();
-	this->m_indexCount = vertices.size();
+	this->m_indexCount = vertexData.size();//vertices.size();
 	this->m_model = new VertexModel[this->m_vertexCount];
 	for (int j = 0; j < m_vertexCount; j++)
 	{
