@@ -23,7 +23,7 @@ public:
 	D3Object();
 	D3Object(const D3Object& original);
 	~D3Object();
-	bool Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* modelFileName, char* textureFileName);
+	bool Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* modelFileName, char* textureFileName, FactoryObjectFormat format);
 	void Shutdown();
 	void Render(ID3D11DeviceContext* deviceContext);	//Move model geometry to device context / Graphicscard
 #pragma region
@@ -41,6 +41,7 @@ private:
 	void ReleaseTexture();
 
 	bool LoadModel(char* fileName);
+	bool LoadModelTXT(char* filename);
 	void ReleaseModel();
 };
 

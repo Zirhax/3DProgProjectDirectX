@@ -21,6 +21,7 @@ private:
 	Camera* m_Camera;
 	D3Object* m_Model;
 	TextureHandler* m_TextureShader;
+	float rotation;
 	//ShaderHandler* m_shaderHandler;
 public:
 	GraphicsHandler();

@@ -7,6 +7,7 @@ GraphicsHandler::GraphicsHandler()
 	m_Camera = nullptr;
 	m_Model = nullptr;
 	m_TextureShader = nullptr;
+	rotation = 0.0f;
 	//m_shaderHandler = nullptr;
 }
 
@@ -47,7 +48,7 @@ bool GraphicsHandler::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	// Set the initial position of the camera.
-	m_Camera->SetPosition(0.0f, 0.0f, -5.0f);
+	m_Camera->SetPosition(0.0f, 0.0f, -10.0f);
 
 	// Create the model object.
 	m_Model = new D3Object();
@@ -57,7 +58,7 @@ bool GraphicsHandler::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	// Initialize the model object.
-	result = m_Model->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), "box.obj" ,"stone01.tga");
+	result = m_Model->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), "cube.txt" ,"stone01.tga", FactoryObjectFormat::TXT);
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
@@ -120,7 +121,11 @@ void GraphicsHandler::ShutDown()
 bool GraphicsHandler::Frame()
 {
 	bool result = true;
-
+	this->rotation += 3.1415f * 0.01f;
+	if (this->rotation > 360.0f)
+	{
+		this->rotation -= 360.0f;
+	}
 	//Render the graphics scene.
 	result = this->Render();
 	if (!result)
@@ -147,6 +152,8 @@ bool GraphicsHandler::Render()
 	this->m_Direct3D->GetWorldMatrix(worldMatrix);
 	this->m_Camera->GetViewMatrix(viewMatrix);
 	this->m_Direct3D->GetProjectionMatrix(projectionMatrix);
+
+	worldMatrix = DirectX::XMMatrixRotationAxis(SimpleMath::Vector4(0, 1, 0, 0), rotation);
 
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	m_Model->Render(this->m_Direct3D->GetDeviceContext());

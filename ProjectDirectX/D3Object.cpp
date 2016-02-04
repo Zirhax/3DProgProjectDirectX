@@ -21,12 +21,23 @@ D3Object::~D3Object()
 {
 }
 
-bool D3Object::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* modelFilename, char* textureFileName)
+bool D3Object::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* modelFilename, char* textureFileName, FactoryObjectFormat format)
 {
 	bool result = false;
 
 	//Load the model data
-	result = this->LoadModel(modelFilename);
+	switch (format)
+	{
+	case OBJ:
+		result = this->LoadModel(modelFilename);
+		break;
+	case TXT:
+		result = this->LoadModelTXT(modelFilename);
+		break;
+	default:
+		break;
+	}
+//	result = this->LoadModel(modelFilename);
 	if (!result)
 		return false;
 
@@ -305,6 +316,65 @@ bool D3Object::LoadModel(char * fileName)
 	{
 		this->m_model[j] = vertexData[j];
 	}
+
+	return true;
+}
+
+bool D3Object::LoadModelTXT(char * filename)
+{
+	ifstream fin;
+	char input;
+	int i;
+
+
+	// Open the model file.
+	fin.open(filename);
+
+	// If it could not open the file then exit.
+	if (fin.fail())
+	{
+		return false;
+	}
+
+	// Read up to the value of vertex count.
+	fin.get(input);
+	while (input != ':')
+	{
+		fin.get(input);
+	}
+
+	// Read in the vertex count.
+	fin >> m_vertexCount;
+
+	// Set the number of indices to be the same as the vertex count.
+	m_indexCount = m_vertexCount;
+
+	// Create the model using the vertex count that was read in.
+	m_model = new VertexModel[m_vertexCount];
+	if (!m_model)
+	{
+		return false;
+	}
+
+	// Read up to the beginning of the data.
+	fin.get(input);
+	while (input != ':')
+	{
+		fin.get(input);
+	}
+	fin.get(input);
+	fin.get(input);
+
+	// Read in the vertex data.
+	for (i = 0; i<m_vertexCount; i++)
+	{
+		fin >> m_model[i].position.x >> m_model[i].position.y >> m_model[i].position.z;
+		fin >> m_model[i].UV.x >> m_model[i].UV.y;
+		fin >> m_model[i].normal.x >> m_model[i].normal.y >> m_model[i].normal.z;
+	}
+
+	// Close the model file.
+	fin.close();
 
 	return true;
 }
