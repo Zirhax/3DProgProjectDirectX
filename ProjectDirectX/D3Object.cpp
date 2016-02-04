@@ -4,6 +4,12 @@
 
 D3Object::D3Object()
 {
+	m_vertexBuffer = NULL;
+	m_indexBuffer = NULL;
+	m_vertexCount = 0;
+	m_indexCount = 0;
+	m_model = NULL;
+	m_texture = NULL;
 }
 
 D3Object::D3Object(const D3Object & original)
@@ -77,8 +83,8 @@ bool D3Object::InitializeBuffers(ID3D11Device *device)
 	HRESULT result;
 
 	//Set the number of vertices in the vertex array.
-	this->m_vertexCount = 3;
-	this->m_indexCount = 3;
+	//this->m_vertexCount = 3;
+	//this->m_indexCount = 3;
 
 	//Create buffers and check for successfull completion.
 	//Create the vertex array. Fun part :D
@@ -176,7 +182,7 @@ void D3Object::RenderBuffers(ID3D11DeviceContext *deviceContext)
 	unsigned int stride = 0;
 	unsigned int offset = 0;
 
-	stride = sizeof(VertexUV);
+	stride = sizeof(VertexModel);
 
 	//Set the vertex buffer for the input assembler.
 	deviceContext->IASetVertexBuffers(0, 1, &this->m_vertexBuffer, &stride, &offset);
