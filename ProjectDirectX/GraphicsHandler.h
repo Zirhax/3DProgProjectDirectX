@@ -20,7 +20,6 @@ private:
 	bool Render();
 	Camera* m_Camera;
 	D3Object* m_Model;
-	D2Object* m_oldModel;
 	TextureHandler* m_TextureShader;
 	//ShaderHandler* m_shaderHandler;
 public:
