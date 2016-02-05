@@ -19,6 +19,8 @@ float4 main(PS_IN_UV input) : SV_TARGET
 
 	//Sample the pixel color from the color texture
 	m_color = c_text.Sample(samplerType, input.UV);
+	m_color = float4(input.Normal.x, input.Normal.y, 0.0f, 1.0f);
+	//m_color = input.Normal;
 	return m_color;
 }
 

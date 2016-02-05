@@ -10,6 +10,13 @@ struct VS_IN_UV
 	float2 UV : TEXCOORD;
 };
 
+struct VS_IN_3D
+{
+	float4 Pos : POSITION;
+	float2 UV : TEXCOORD;
+	float3 Normal : NORMAL;
+};
+
 struct GS_IN
 {
 	float4 Pos : SV_POSITION;

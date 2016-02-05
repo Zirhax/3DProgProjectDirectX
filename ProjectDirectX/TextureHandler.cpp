@@ -25,9 +25,9 @@ TextureHandler::~TextureHandler()
 bool TextureHandler::Initialize(ID3D11Device * device, HWND hwnd)
 {
 	bool result = false;
-	WCHAR* vsName = L"VertexShader.hlsl";
-	WCHAR* gsName = L"GeometryShader.hlsl";
-	WCHAR* psName = L"PixelShader.hlsl";
+	WCHAR* vsName = (WCHAR*)VERTEXSHADER_NAME_WCHAR;
+	WCHAR* gsName = (WCHAR*)GEOMETRYSHADER_NAME_WCHAR;
+	WCHAR* psName = (WCHAR*)PIXELSHADER_NAME_WCHAR;
 	//Initialize the vertex and pixel shaders
 	result = this->InitializeShader(device, hwnd, vsName, gsName, psName);
 
@@ -193,8 +193,8 @@ bool TextureHandler::InitializeShader(ID3D11Device * device, HWND hwnd, WCHAR * 
 		return false;
 	}
 #pragma endregion Creating shader buffers
-	unsigned int numElements = ARRAYSIZE(INPUT_DESC_UV);
-	hResult = device->CreateInputLayout(INPUT_DESC_UV, numElements, pVS->GetBufferPointer(), pVS->GetBufferSize(), &m_layout);
+	unsigned int numElements = ARRAYSIZE(INPUT_DESC_3D);
+	hResult = device->CreateInputLayout(INPUT_DESC_3D, numElements, pVS->GetBufferPointer(), pVS->GetBufferSize(), &m_layout);
 	if (FAILED(hResult))
 	{
 		return false;
