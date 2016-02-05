@@ -119,7 +119,7 @@ void GraphicsHandler::ShutDown()
 	return;
 }
 
-bool GraphicsHandler::Frame()
+bool GraphicsHandler::Frame(float dT)
 {
 	bool result = true;
 	this->rotation += 3.1415f * 0.01f;

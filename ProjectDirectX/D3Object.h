@@ -40,7 +40,9 @@ private:
 	bool LoadTexture(ID3D11Device* device, ID3D11DeviceContext *deviceContext, char* textureFileName);
 	void ReleaseTexture();
 
-	bool LoadModel(char* fileName);
+	bool LoadModelObjLH(char* fileName);
+	bool LoadModelObjRH(char* fileName);
+	bool LoadModelObj(char* fileName, int invert = 1);
 	bool LoadModelTXT(char* filename);
 	void ReleaseModel();
 };

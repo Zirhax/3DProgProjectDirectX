@@ -170,7 +170,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 bool System::Frame()
 {
 	bool result = true;
-
+	float deltaTime = 1;
 	//Check if the user pressed escape and wants to exit the application,
 	if (m_Input->IsKeyDown(VK_ESCAPE))
 	{
@@ -178,7 +178,7 @@ bool System::Frame()
 	}
 
 	//Do the frame processing for the graphics object.
-	result = m_Graphics->Frame();	
+	result = m_Graphics->Frame(deltaTime);	
 	if (!result)
 	{
 		return false;
