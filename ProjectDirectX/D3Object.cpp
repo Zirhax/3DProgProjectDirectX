@@ -269,7 +269,8 @@ bool D3Object::LoadModel(char * fileName)
 		if (line2.substr(0, 2) == "v ")
 		{
 			// Vertex Position
-			inputString >> special >> vtx.x >> vtx.y >> vtx.z;
+			sscanf(temp, "%s %f %f %f\n", specialChar, &vtx.x, &vtx.y, &vtx.z);
+			//inputString >> special >> vtx.x >> vtx.y >> vtx.z;
 			vertices.push_back(vtx);
 		}
 		else if (line2.substr(0, 2) == "vt")
@@ -298,7 +299,8 @@ bool D3Object::LoadModel(char * fileName)
 		{
 			//Vertex Normal Indices in format f v1/vt1/vn1
 			struct IndexStruct { int v; int vt; int vn; } faceIndices[3];
-			sscanf(temp, "%s %i/%i/%i %i/%i/%i %i/%i/%i\n", specialChar, &faceIndices[0].v, &faceIndices[0].vt, &faceIndices[0].vn,
+			sscanf(temp, "%s %i/%i/%i %i/%i/%i %i/%i/%i\n", specialChar,
+				&faceIndices[0].v, &faceIndices[0].vt, &faceIndices[0].vn,
 				&faceIndices[1].v, &faceIndices[1].vt, &faceIndices[1].vn,
 				&faceIndices[2].v, &faceIndices[2].vt, &faceIndices[2].vn);
 			//VertexModel tempModelData = {vertices[&faceIndices[0].v - 1], UV[&faceIndices[0].v], normals[&faceIndices[0].vn]};
@@ -314,7 +316,7 @@ bool D3Object::LoadModel(char * fileName)
 	this->m_model = new VertexModel[this->m_vertexCount];
 	for (int j = 0; j < m_vertexCount; j++)
 	{
-		this->m_model[j] = vertexData[j];
+		this->m_model[j] = vertexData[m_vertexCount - j - 1];
 	}
 
 	return true;
