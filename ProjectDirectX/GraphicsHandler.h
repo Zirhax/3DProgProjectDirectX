@@ -33,7 +33,7 @@ public:
 	void ShutDown();
 	bool Frame(float dT);
 
-	bool UpdateInput(InputHandler inputObj);
+	bool UpdateInput(InputHandler* inputObj);
 };
 
 #endif

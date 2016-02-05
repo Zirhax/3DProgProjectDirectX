@@ -137,8 +137,29 @@ bool GraphicsHandler::Frame(float dT)
 	return result;
 }
 
-bool GraphicsHandler::UpdateInput(InputHandler inputObj)
+bool GraphicsHandler::UpdateInput(InputHandler* inputObj)
 {
+	if (inputObj->IsKeyDown(KEY_W))
+	{
+
+	}
+	if (inputObj->IsKeyDown(KEY_A))
+	{
+
+	}
+	if (inputObj->IsKeyDown(KEY_S))
+	{
+
+	}
+	if (inputObj->IsKeyDown(KEY_D))
+	{
+
+	}
+	if (inputObj->IsKeyDown(KEY_RESET))
+	{
+
+	}
+	return true;
 }
 
 bool GraphicsHandler::Render()

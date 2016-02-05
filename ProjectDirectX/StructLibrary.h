@@ -68,6 +68,15 @@ enum TextureFormat
 	JPEG
 };
 
+enum GraphicsKey
+{
+	KEY_W = 87,
+	KEY_A = 65,
+	KEY_S = 83,
+	KEY_D = 68,
+	KEY_RESET = 82
+};
+
 // input layout (verified using vertex shader)
 //static const D3D11_INPUT_ELEMENT_DESC inputDescColor[] = {
 //	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
