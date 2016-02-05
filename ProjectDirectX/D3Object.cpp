@@ -29,6 +29,8 @@ bool D3Object::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceConte
 	switch (format)
 	{
 	case OBJ:
+	case OBJ_LH:
+	case OBJ_RH:
 		result = this->LoadModel(modelFilename);
 		break;
 	case TXT:

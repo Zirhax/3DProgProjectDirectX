@@ -58,7 +58,7 @@ bool GraphicsHandler::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	// Initialize the model object.
-	result = m_Model->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), "box.obj", "stone01.tga", FactoryObjectFormat::OBJ);
+	result = m_Model->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), "box.obj", "stone01.tga", FactoryObjectFormat::OBJ_RH);
 	//result = m_Model->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), "cube.txt", "stone01.tga", FactoryObjectFormat::TXT);
 	if (!result)
 	{

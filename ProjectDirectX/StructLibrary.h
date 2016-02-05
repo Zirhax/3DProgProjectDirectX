@@ -56,6 +56,8 @@ struct JPEGHeader
 enum FactoryObjectFormat
 {
 	OBJ,
+	OBJ_RH,
+	OBJ_LH,
 	TXT
 };
 
