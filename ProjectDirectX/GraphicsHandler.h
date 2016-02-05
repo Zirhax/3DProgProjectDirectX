@@ -6,6 +6,7 @@
 #include "D2Object.h"
 #include "D3Object.h"
 #include "TextureHandler.h"
+#include "InputHandler.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
@@ -31,6 +32,8 @@ public:
 	bool Initialize(int screenWidth, int screenHeight, HWND hwnd);
 	void ShutDown();
 	bool Frame(float dT);
+
+	bool UpdateInput(InputHandler inputObj);
 };
 
 #endif

@@ -137,6 +137,10 @@ bool GraphicsHandler::Frame(float dT)
 	return result;
 }
 
+bool GraphicsHandler::UpdateInput(InputHandler inputObj)
+{
+}
+
 bool GraphicsHandler::Render()
 {
 	Matrix viewMatrix, projectionMatrix, worldMatrix;
