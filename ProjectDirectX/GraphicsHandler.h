@@ -12,6 +12,10 @@ const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.1f;
+const Vector3 UP = { 0, 0, 1 };
+const Vector3 DOWN = { 0, 0, -1 };
+const Vector3 LEFT = { 0, -1, 0 };
+const Vector3 RIGHT = { 0, 1, 0 };
 
 
 class GraphicsHandler
@@ -33,7 +37,7 @@ public:
 	void ShutDown();
 	bool Frame(float dT);
 
-	bool UpdateInput(InputHandler* inputObj);
+	bool UpdateInput(InputHandler* inputObj, float dT);
 };
 
 #endif

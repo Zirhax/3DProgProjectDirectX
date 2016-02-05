@@ -137,27 +137,27 @@ bool GraphicsHandler::Frame(float dT)
 	return result;
 }
 
-bool GraphicsHandler::UpdateInput(InputHandler* inputObj)
+bool GraphicsHandler::UpdateInput(InputHandler* inputObj, float dT)
 {
 	if (inputObj->IsKeyDown(KEY_W))
 	{
-
+		m_Camera->SetPosition(m_Camera->GetPosition());
 	}
 	if (inputObj->IsKeyDown(KEY_A))
 	{
-
+		m_Camera->SetPosition(m_Camera->GetPosition());
 	}
 	if (inputObj->IsKeyDown(KEY_S))
 	{
-
+		m_Camera->SetPosition(m_Camera->GetPosition());
 	}
 	if (inputObj->IsKeyDown(KEY_D))
 	{
-
+		m_Camera->SetPosition(m_Camera->GetPosition());
 	}
 	if (inputObj->IsKeyDown(KEY_RESET))
 	{
-
+		m_Camera->SetPosition(m_Camera->GetPosition());
 	}
 	return true;
 }
