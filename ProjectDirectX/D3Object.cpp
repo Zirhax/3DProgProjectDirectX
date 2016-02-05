@@ -29,9 +29,13 @@ bool D3Object::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceConte
 	switch (format)
 	{
 	case OBJ:
-	case OBJ_LH:
-	case OBJ_RH:
 		result = this->LoadModelObj(modelFilename);
+		break;
+	case OBJ_LH:
+		result = this->LoadModelObjLH(modelFilename);
+		break;
+	case OBJ_RH:
+		result = this->LoadModelObjRH(modelFilename);
 		break;
 	case TXT:
 		result = this->LoadModelTXT(modelFilename);
@@ -243,12 +247,12 @@ void D3Object::ReleaseTexture()
 
 bool D3Object::LoadModelObjLH(char * fileName)
 {
-	return false;
+	return this->LoadModelObj(fileName, 1);
 }
 
 bool D3Object::LoadModelObjRH(char * fileName)
 {
-	return false;
+	return this->LoadModelObj(fileName, -1);
 }
 
 bool D3Object::LoadModelObj(char * fileName, int invert)
@@ -282,6 +286,7 @@ bool D3Object::LoadModelObj(char * fileName, int invert)
 		{
 			// Vertex Position
 			sscanf(temp, "%s %f %f %f\n", specialChar, &vtx.x, &vtx.y, &vtx.z);
+			vtx.z *= invert;
 			//inputString >> special >> vtx.x >> vtx.y >> vtx.z;
 			vertices.push_back(vtx);
 		}
@@ -303,7 +308,7 @@ bool D3Object::LoadModelObj(char * fileName, int invert)
 		{
 			//Group name
 		}
-		else if (line2.substr(0, 8) == "mtllib ")
+		else if (line2.substr(0, 7) == "mtllib")
 		{
 			//Material name
 		}

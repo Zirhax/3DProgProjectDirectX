@@ -30,7 +30,7 @@ public:
 
 	bool Initialize(int screenWidth, int screenHeight, HWND hwnd);
 	void ShutDown();
-	bool Frame();
+	bool Frame(float dT);
 };
 
 #endif
