@@ -141,23 +141,23 @@ bool GraphicsHandler::UpdateInput(InputHandler* inputObj, float dT)
 {
 	if (inputObj->IsKeyDown(KEY_W))
 	{
-		m_Camera->SetPosition(m_Camera->GetPosition());
+		m_Camera->SetPosition(m_Camera->GetPosition() + D_UP * dT);
 	}
 	if (inputObj->IsKeyDown(KEY_A))
 	{
-		m_Camera->SetPosition(m_Camera->GetPosition());
+		m_Camera->SetPosition(m_Camera->GetPosition() + D_LEFT * dT);
 	}
 	if (inputObj->IsKeyDown(KEY_S))
 	{
-		m_Camera->SetPosition(m_Camera->GetPosition());
+		m_Camera->SetPosition(m_Camera->GetPosition() + D_DOWN * dT);
 	}
 	if (inputObj->IsKeyDown(KEY_D))
 	{
-		m_Camera->SetPosition(m_Camera->GetPosition());
+		m_Camera->SetPosition(m_Camera->GetPosition() + D_RIGHT * dT);
 	}
 	if (inputObj->IsKeyDown(KEY_RESET))
 	{
-		m_Camera->SetPosition(m_Camera->GetPosition());
+		m_Camera->SetPosition(ORIG);
 	}
 	return true;
 }
