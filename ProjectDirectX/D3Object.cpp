@@ -31,7 +31,7 @@ bool D3Object::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceConte
 	case OBJ:
 	case OBJ_LH:
 	case OBJ_RH:
-		result = this->LoadModel(modelFilename);
+		result = this->LoadModelObj(modelFilename);
 		break;
 	case TXT:
 		result = this->LoadModelTXT(modelFilename);
@@ -39,7 +39,7 @@ bool D3Object::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceConte
 	default:
 		break;
 	}
-//	result = this->LoadModel(modelFilename);
+//	result = this->LoadModelObj(modelFilename);
 	if (!result)
 		return false;
 
@@ -241,7 +241,17 @@ void D3Object::ReleaseTexture()
 	return;
 }
 
-bool D3Object::LoadModel(char * fileName)
+bool D3Object::LoadModelObjLH(char * fileName)
+{
+	return false;
+}
+
+bool D3Object::LoadModelObjRH(char * fileName)
+{
+	return false;
+}
+
+bool D3Object::LoadModelObj(char * fileName, int invert)
 {
 	ifstream fileIn;
 	string special = "", line = "", line2 = "";
