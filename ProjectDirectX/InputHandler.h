@@ -29,12 +29,16 @@ public:
 	InputHandler(const InputHandler& input);
 	~InputHandler();
 
-	void Initialize();
+	bool Initialize(HINSTANCE hInstance, HWND hwnd, int width, int height);
+	void Shutdown();
+	bool Frame();
 
-	void KeyDown(unsigned int key);
-	void KeyUp(unsigned int key);
-	
 	bool IsKeyDown(unsigned int key);
+
+private:
+	bool ReadKeyboard();
+	bool ReadMouse();
+	void ProcessInput();
 };
 
 #endif
