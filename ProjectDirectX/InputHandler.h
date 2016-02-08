@@ -34,7 +34,7 @@ public:
 	bool Frame();
 
 	bool IsKeyDown(unsigned int key);
-
+	void GetMouse(int& x, int& y);
 private:
 	bool ReadKeyboard();
 	bool ReadMouse();

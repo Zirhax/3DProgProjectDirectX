@@ -4,6 +4,9 @@
 
 InputHandler::InputHandler()
 {
+	this->m_directInput = NULL;
+	this->m_keyboard = NULL;
+	this->m_mouse = NULL;
 }
 
 InputHandler::InputHandler(const InputHandler & input)
@@ -15,29 +18,48 @@ InputHandler::~InputHandler()
 {
 }
 
-void InputHandler::Initialize()
+bool InputHandler::Initialize(HINSTANCE hInstance, HWND hwnd, int width, int height)
 {
-	int i = 1;
-	//Initialize all keys as released/not pressed
-	for (int i = 0; i < 256; i++)
-	{
-		m_keys[i] = false;
-	}
-	return;
+	HRESULT result;
+	this->m_screenWidth = width;
+	this->m_screenHeight = height;
+	
+	this->m_mouseX = 0;
+	this->m_mouseY = 0;
+
+
+
+	return false;
 }
 
-void InputHandler::KeyDown(unsigned int key)
+void InputHandler::Shutdown()
 {
-	m_keys[key] = true;
-	return;
 }
 
-void InputHandler::KeyUp(unsigned int key)
+bool InputHandler::Frame()
 {
-	m_keys[key] = false;
+	return false;
 }
 
 bool InputHandler::IsKeyDown(unsigned int key)
 {
 	return m_keys[key];
+}
+
+void InputHandler::GetMouse(int & x, int & y)
+{
+}
+
+bool InputHandler::ReadKeyboard()
+{
+	return false;
+}
+
+bool InputHandler::ReadMouse()
+{
+	return false;
+}
+
+void InputHandler::ProcessInput()
+{
 }
