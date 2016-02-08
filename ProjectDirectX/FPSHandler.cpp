@@ -35,7 +35,7 @@ void FPSHandler::Frame()
 		m_FPS = m_count;
 		m_count = 0;
 
-		m_start = timeGetTime() % m_start;
+		m_start = timeGetTime();
 	}
 }
 

@@ -23,6 +23,8 @@ bool System::Initialize()
 	int screenWidth, screenHeight;
 
 	m_FPS = new FPSHandler();
+	m_FPS->Initialize();
+
 
 	//Initialize the height and width of the screen to zero
 	screenWidth = 0;
@@ -173,7 +175,16 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 bool System::Frame()
 {
 	bool result = true;
-	float deltaTime = timeGetTime();
+	this->m_FPS->Frame();
+	float deltaTime = this->m_FPS->GetFps();	//Set delta FPS
+	if (deltaTime == 0)
+		deltaTime = 0.00000001;
+	deltaTime = 60 / deltaTime;
+	//Correct delta FPS so it is within reasonable grounds
+	if (deltaTime > 6)
+		deltaTime = 6;
+	else if (deltaTime < 0)
+		deltaTime = 0;
 	//Check if the user pressed escape and wants to exit the application,
 	if (m_Input->IsKeyDown(VK_ESCAPE))
 	{
