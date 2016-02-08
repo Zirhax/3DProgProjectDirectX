@@ -170,7 +170,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 bool System::Frame()
 {
 	bool result = true;
-	float deltaTime = 1;
+	float deltaTime = timeGetTime();
 	//Check if the user pressed escape and wants to exit the application,
 	if (m_Input->IsKeyDown(VK_ESCAPE))
 	{
