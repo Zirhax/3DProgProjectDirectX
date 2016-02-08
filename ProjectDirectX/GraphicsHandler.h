@@ -43,7 +43,7 @@ public:
 
 	bool Initialize(int screenWidth, int screenHeight, HWND hwnd);
 	void ShutDown();
-	bool Frame(float dT);
+	bool Frame(float fps, float frameTime, InputHandler* inputObj);
 
 	bool UpdateInput(InputHandler* inputObj, float dT);
 };

@@ -119,8 +119,9 @@ void GraphicsHandler::ShutDown()
 	return;
 }
 
-bool GraphicsHandler::Frame(float dT)
+bool GraphicsHandler::Frame(float fps, float frameTime, InputHandler* inputObj)
 {
+	this->UpdateInput(inputObj, frameTime / 1000);
 	bool result = true;
 	this->rotation += 3.1415f * 0.01f;
 	if (this->rotation > 720.0f)
@@ -139,22 +140,31 @@ bool GraphicsHandler::Frame(float dT)
 
 bool GraphicsHandler::UpdateInput(InputHandler* inputObj, float dT)
 {
+	float verticalConstant = 2, horizontalConstant = 2;
+	//Change dT based on vertical vs horizontal movement
+	dT *= verticalConstant;
 	if (inputObj->IsKeyDown(KEY_W))
 	{
 		m_Camera->SetPosition(m_Camera->GetPosition() + D_UP * dT);
-	}
-	if (inputObj->IsKeyDown(KEY_A))
-	{
-		m_Camera->SetPosition(m_Camera->GetPosition() + D_LEFT * dT);
 	}
 	if (inputObj->IsKeyDown(KEY_S))
 	{
 		m_Camera->SetPosition(m_Camera->GetPosition() + D_DOWN * dT);
 	}
+
+	dT /= verticalConstant;	//Change the vertical movement back
+	dT *= horizontalConstant;	//Update the horizontal movement
+	if (inputObj->IsKeyDown(KEY_A))
+	{
+		m_Camera->SetPosition(m_Camera->GetPosition() + D_LEFT * dT);
+	}
 	if (inputObj->IsKeyDown(KEY_D))
 	{
 		m_Camera->SetPosition(m_Camera->GetPosition() + D_RIGHT * dT);
 	}
+	dT /= horizontalConstant;	//Change the horizontal movement back
+
+	//Allow for resetting the camera back to its origin
 	if (inputObj->IsKeyDown(KEY_RESET))
 	{
 		m_Camera->SetPosition(ORIG);

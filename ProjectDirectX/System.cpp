@@ -7,6 +7,7 @@ System::System()
 	m_Input = NULL;
 	m_Graphics = NULL;
 	m_FPS = NULL;
+	m_timer = NULL;
 }
 
 System::System(const System & orig)
@@ -194,25 +195,24 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 
 bool System::Frame()
 {
-	bool result = true;
-	this->m_FPS->Frame();
-	float deltaTime = this->m_FPS->GetFps();	//Set delta FPS
-	if (deltaTime == 0)
-		deltaTime = 0.00000001;
-	deltaTime = 60 / deltaTime;
-	//Correct delta FPS so it is within reasonable grounds
-	if (deltaTime > 6)
-		deltaTime = 6;
-	else if (deltaTime < 0)
-		deltaTime = 0;
 	//Check if the user pressed escape and wants to exit the application,
 	if (m_Input->IsKeyDown(VK_ESCAPE))
 	{
 		return false;
 	}
-	m_Graphics->UpdateInput(this->m_Input, deltaTime);
+
+
+	bool result = true;
+	this->m_FPS->Frame();
+	this->m_timer->Frame();
+	float FPS = this->m_FPS->GetFps();	//Set FPS
+	float frameTime = this->m_timer->GetTime();
+	if (FPS <= 0)	//Correct the 
+		FPS = 0.00000001;
+
+	//m_Graphics->UpdateInput(this->m_Input, dFPS);
 	//Do the frame processing for the graphics object.
-	result = m_Graphics->Frame(deltaTime);	
+	result = m_Graphics->Frame(FPS, frameTime, m_Input);	
 	if (!result)
 	{
 		return false;
