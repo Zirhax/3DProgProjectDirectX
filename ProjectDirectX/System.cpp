@@ -22,7 +22,15 @@ bool System::Initialize()
 	bool result = true;
 	int screenWidth, screenHeight;
 
+	//Construct and test the FPS handler and the Timer.
 	m_FPS = new FPSHandler();
+	if (m_FPS == NULL)
+		return false;
+	m_timer = new Timer();
+	if (m_timer == NULL)
+		return false;
+	//Initialize the FPS handler and the Timer.
+	m_timer->Initialize();
 	m_FPS->Initialize();
 
 
@@ -74,6 +82,18 @@ void System::ShutDown()
 	{
 		delete m_Input;
 		m_Input = NULL;
+	}
+
+	if (m_FPS)
+	{
+		delete m_FPS;
+		m_FPS = NULL;
+	}
+
+	if (m_timer)
+	{
+		delete m_timer;
+		m_timer = NULL;
 	}
 
 	//Shutdown the window
