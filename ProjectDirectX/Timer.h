@@ -12,7 +12,14 @@ private:	//Variables
 	float m_frameTime;
 public:
 	Timer();
+	Timer(const Timer& original);
 	virtual ~Timer();
+
+	bool Initialize();
+	void Frame();
+
+	float GetTime();
+
 private:	//Functions
 
 };
