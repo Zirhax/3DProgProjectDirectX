@@ -6,6 +6,7 @@ System::System()
 {
 	m_Input = NULL;
 	m_Graphics = NULL;
+	m_FPS = NULL;
 }
 
 System::System(const System & orig)
@@ -20,6 +21,8 @@ bool System::Initialize()
 {
 	bool result = true;
 	int screenWidth, screenHeight;
+
+	m_FPS = new FPSHandler();
 
 	//Initialize the height and width of the screen to zero
 	screenWidth = 0;

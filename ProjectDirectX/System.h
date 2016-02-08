@@ -6,6 +6,7 @@
 
 #include <windows.h>
 
+#include "FPSHandler.h"
 #include "InputHandler.h"
 #include "GraphicsHandler.h"
 
@@ -18,6 +19,7 @@ private:
 
 	InputHandler* m_Input;
 	GraphicsHandler* m_Graphics;
+	FPSHandler* m_FPS;
 
 	bool Frame();
 	void InitializeWindows(int& width, int& height);
