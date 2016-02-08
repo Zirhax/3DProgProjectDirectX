@@ -154,6 +154,7 @@
     <ClCompile Include="TextureHandler.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="TextureObject.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="StructLibrary.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="TextureObject.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="GeometryShader.hlsl">

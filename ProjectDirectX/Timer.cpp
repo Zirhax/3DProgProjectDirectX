@@ -41,7 +41,7 @@ void Timer::Frame()
 	INT64 curTime = 0;
 	float deltaTime = 0;
 
-	QueryPerformanceCounter((LARGE_INTEGER*)&curTIme);
+	QueryPerformanceCounter((LARGE_INTEGER*)&curTime);
 	
 	deltaTime = (float)(curTime - m_startTime);
 	//Calculate the time frame time.
