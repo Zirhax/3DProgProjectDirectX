@@ -27,13 +27,15 @@ public:
 	void Shutdown();
 	void Render(ID3D11DeviceContext* deviceContext);	//Move model geometry to device context / Graphicscard
 #pragma region
-	int GetIndexCount();
+	int GetIndexCount()const;
 	ID3D11ShaderResourceView* GetTexture();
 #pragma endregion getters
 
-private:
+	bool CreateFromData(vector<VertexModel> vertexData);	//Allows for external definition of vertices into a D3Object
 
 	bool InitializeBuffers(ID3D11Device* device);
+private:
+
 	void ShutdownBuffers();
 	void RenderBuffers(ID3D11DeviceContext* deviceContext);
 

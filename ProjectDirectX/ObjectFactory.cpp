@@ -11,23 +11,23 @@ ObjectFactory::~ObjectFactory()
 {
 }
 
-vector<D3Object*> ObjectFactory::CreateFromFile(char * fileName, FactoryObjectFormat objectFormat)
+vector<D3Object*> ObjectFactory::CreateFromFile(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char * fileName, FactoryObjectFormat objectFormat)
 {
 	vector<D3Object*> storeIn;
-	this->CreateFromFile(fileName, objectFormat, storeIn);
+	this->CreateFromFile(device, deviceContext, fileName, objectFormat, storeIn);
 	return storeIn;
 }
 
-void ObjectFactory::CreateFromFile(char * fileName, FactoryObjectFormat objectFormat, vector<D3Object*> &storeIn)
+void ObjectFactory::CreateFromFile(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char * fileName, FactoryObjectFormat objectFormat, vector<D3Object*> &storeIn)
 {
 	switch (objectFormat)
 	{
 	case OBJ:
 	case OBJ_LH:
-		this->CreateFromObj(fileName, storeIn, 1);
+		this->CreateFromObj(device, deviceContext, fileName, storeIn, 1);
 			break;
 	case OBJ_RH:
-		this->CreateFromObj(fileName, storeIn, -1);
+		this->CreateFromObj(device, deviceContext, fileName, storeIn, -1);
 		break;
 	case TXT:
 		break;
@@ -36,7 +36,7 @@ void ObjectFactory::CreateFromFile(char * fileName, FactoryObjectFormat objectFo
 	}
 }
 
-bool ObjectFactory::CreateFromObj(char * fileName, vector<D3Object*>& storeIn, int invert)
+bool ObjectFactory::CreateFromObj(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char * fileName, vector<D3Object*>& storeIn, int invert)
 {
 	ifstream fileIn;
 	string special = "", line = "", line2 = "";
