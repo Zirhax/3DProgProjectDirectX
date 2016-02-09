@@ -214,9 +214,15 @@ bool System::Frame()
 	if (FPS <= 0)	//Correct the 
 		FPS = 0.00000001;
 
-	//m_Graphics->UpdateInput(this->m_Input, dFPS);
 	//Do the frame processing for the graphics object.
 	result = m_Graphics->Frame(FPS, frameTime, m_Input);	
+	if (!result)
+	{
+		return false;
+	}
+
+	//Render the graphics scene.
+	result = this->m_Graphics->Render();
 	if (!result)
 	{
 		return false;

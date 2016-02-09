@@ -30,7 +30,6 @@ class GraphicsHandler
 {
 private:
 	D3DClass* m_Direct3D;
-	bool Render();
 	Camera* m_Camera;
 	D3Object* m_Model;
 	TextureHandler* m_TextureShader;
@@ -44,7 +43,9 @@ public:
 	bool Initialize(int screenWidth, int screenHeight, HWND hwnd);
 	void ShutDown();
 	bool Frame(float fps, float frameTime, InputHandler* inputObj);
+	bool Render();
 
+private:
 	bool UpdateInput(InputHandler* inputObj, float dT);
 };
 

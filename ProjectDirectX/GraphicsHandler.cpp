@@ -128,12 +128,6 @@ bool GraphicsHandler::Frame(float fps, float frameTime, InputHandler* inputObj)
 	{
 		this->rotation -= 360.0f;
 	}
-	//Render the graphics scene.
-	result = this->Render();
-	if (!result)
-	{
-		return false;
-	}
 
 	return result;
 }
