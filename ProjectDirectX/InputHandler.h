@@ -8,7 +8,7 @@
 #pragma comment(lib, "dxguid.lib")
 
 #include <dinput.h>
-
+#include "StructLibrary.h"
 class InputHandler
 {
 private:
