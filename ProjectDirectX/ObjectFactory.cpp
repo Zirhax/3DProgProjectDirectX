@@ -23,7 +23,7 @@ void ObjectFactory::CreateFromFile(char * fileName, FactoryObjectFormat objectFo
 
 }
 
-void ObjectFactory::CreateFromObj(char * fileName, vector<D3Object*>& storeIn)
+void ObjectFactory::CreateFromObj(char * fileName, vector<D3Object*>& storeIn, int index)
 {
 }
 
