@@ -136,30 +136,32 @@ bool GraphicsHandler::UpdateInput(InputHandler* inputObj, float dT)
 {
 	float verticalConstant = 2, horizontalConstant = 2;
 	//Change dT based on vertical vs horizontal movement
-	dT *= verticalConstant;
-	if (inputObj->IsKeyDown(KEY_W))
+	float origDT = dT;
+	dT *= verticalConstant;	//Update the vertical movement
+	if (inputObj->IsKeyPressed(DIK_W))
 	{
 		m_Camera->SetPosition(m_Camera->GetPosition() + D_UP * dT);
 	}
-	if (inputObj->IsKeyDown(KEY_S))
+	if (inputObj->IsKeyPressed(DIK_S))
 	{
 		m_Camera->SetPosition(m_Camera->GetPosition() + D_DOWN * dT);
 	}
 
-	dT /= verticalConstant;	//Change the vertical movement back
+	dT = origDT;	//Change the vertical movement back
+
 	dT *= horizontalConstant;	//Update the horizontal movement
-	if (inputObj->IsKeyDown(KEY_A))
+	if (inputObj->IsKeyPressed(DIK_A))
 	{
 		m_Camera->SetPosition(m_Camera->GetPosition() + D_LEFT * dT);
 	}
-	if (inputObj->IsKeyDown(KEY_D))
+	if (inputObj->IsKeyPressed(DIK_D))
 	{
 		m_Camera->SetPosition(m_Camera->GetPosition() + D_RIGHT * dT);
 	}
-	dT /= horizontalConstant;	//Change the horizontal movement back
+	dT = origDT;	//Change the horizontal movement back
 
 	//Allow for resetting the camera back to its origin
-	if (inputObj->IsKeyDown(KEY_RESET))
+	if (inputObj->IsKeyPressed(DIK_R))
 	{
 		m_Camera->SetPosition(ORIG);
 	}
