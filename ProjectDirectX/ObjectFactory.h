@@ -22,8 +22,7 @@ public:
 
 	vector<D3Object*> CreateFromFile(char* fileName, FactoryObjectFormat objectFormat);
 	void CreateFromFile(char* fileName, FactoryObjectFormat objectFormat, vector<D3Object*> &storeIn);
-	void CreateObjLH(char* fileName, vector<D3Object*> &storeIn);
-	void CreateObjRH(char* fileName, vector<D3Object*> &storeIn);
+	void CreateFromObj(char* fileName, vector<D3Object*> &storeIn);
 	bool CreateObject(D3Object* storeIn, char* fileName, FactoryObjectFormat objectFormat);
 	bool ReadOBJ(D3Object* storeIn, char* fileName);
 };
