@@ -66,6 +66,13 @@ bool ObjectFactory::CreateFromObj(ID3D11Device* device, ID3D11DeviceContext* dev
 		if (objectFinished)
 		{
 			//Create a new 3DObject using the vectors
+			D3Object* newObject = new D3Object();
+			//Load the model data
+			newObject->CreateFromData(vertexData);
+			//Initialize vertex and index buffers.
+			newObject->InitializeBuffers(device);
+			//Load the texture for this model
+			newObject->LoadTexture(device, deviceContext, "");
 		}
 
 		inputString.str(line2);
