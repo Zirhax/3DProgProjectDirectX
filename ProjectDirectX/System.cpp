@@ -47,8 +47,13 @@ bool System::Initialize()
 	{
 		return false;
 	}
+
 	//Initialize the input object
-	m_Input->Initialize();
+	result = m_Input->Initialize(this->m_hinstance, this->m_hwnd, screenWidth, screenHeight);
+	if (!result)
+	{
+		return false;
+	}
 
 	//Create the graphics object. This object will handle rendering the graphics for the application.
 	m_Graphics = new GraphicsHandler();
@@ -81,16 +86,19 @@ void System::ShutDown()
 	//Release the input object
 	if (m_Input)
 	{
+		m_Input->Shutdown();
 		delete m_Input;
 		m_Input = NULL;
 	}
 
+	//Release the FPS object
 	if (m_FPS)
 	{
 		delete m_FPS;
 		m_FPS = NULL;
 	}
 
+	//Release the timer object
 	if (m_timer)
 	{
 		delete m_timer;
@@ -138,32 +146,20 @@ void System::Run()
 				done = true;
 			}
 		}
+
+		// Check if the user pressed escape and wants to quit.
+		if (m_Input->IsEscapePressed() == true)
+		{
+			done = true;
+		}
 	}
 	return;
 }
 
 LRESULT CALLBACK System::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
 {
-	switch (umsg)
-	{
-		//Check if a key has been pressed.
-		case WM_KEYDOWN:
-		{
-			m_Input->KeyDown((unsigned int)wparam);
-			return 0;
-		}
-		//Check if a key has been released
-		case WM_KEYUP:
-		{
-			m_Input->KeyUp((unsigned int)wparam);
-			return 0;
-		}
-		//Any other messages send to the default mesage handler as we won't make use of them.
-		default:
-		{
-			return DefWindowProc(hwnd, umsg, wparam, lparam);
-		}
-	}
+	//We don't use the windows keyboard that the MessageHandler reads from. Direct Input handles this now.
+	return DefWindowProc(hwnd, umsg, wparam, lparam);
 }
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
@@ -195,23 +191,38 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 bool System::Frame()
 {
 	//Check if the user pressed escape and wants to exit the application,
-	if (m_Input->IsKeyDown(VK_ESCAPE))
+	/*if (m_Input->IsKeyDown(VK_ESCAPE))
+	{
+		return false;
+	}*/
+
+	bool result = true;
+
+	// Do the input frame processing.
+	result = m_Input->Frame();
+	if (!result)
 	{
 		return false;
 	}
-
-
-	bool result = true;
+	//Let the FPS and Timer objects to their frame processing.
 	this->m_FPS->Frame();
 	this->m_timer->Frame();
+
+
 	float FPS = this->m_FPS->GetFps();	//Set FPS
 	float frameTime = this->m_timer->GetTime();
 	if (FPS <= 0)	//Correct the 
 		FPS = 0.00000001;
 
-	//m_Graphics->UpdateInput(this->m_Input, dFPS);
 	//Do the frame processing for the graphics object.
 	result = m_Graphics->Frame(FPS, frameTime, m_Input);	
+	if (!result)
+	{
+		return false;
+	}
+
+	//Render the graphics scene.
+	result = this->m_Graphics->Render();
 	if (!result)
 	{
 		return false;

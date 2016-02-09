@@ -68,7 +68,7 @@ enum TextureFormat
 	JPEG
 };
 
-enum GraphicsKey
+enum Keyboard_Key
 {
 	KEY_W = 87,
 	KEY_A = 65,
