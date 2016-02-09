@@ -40,6 +40,7 @@ bool ObjectFactory::CreateFromObj(char * fileName, vector<D3Object*>& storeIn, i
 {
 	ifstream fileIn;
 	string special = "", line = "", line2 = "";
+	bool objectFinished = false;
 	char specialChar[10];
 	istringstream inputString;
 	vector<Vector3> vertices;
@@ -61,6 +62,11 @@ bool ObjectFactory::CreateFromObj(char * fileName, vector<D3Object*>& storeIn, i
 	{
 		strncpy(temp, line2.c_str(), sizeof(temp));
 		temp[sizeof(temp) - 1] = 0;
+
+		if (objectFinished)
+		{
+			//Create a new 3DObject using the vectors
+		}
 
 		inputString.str(line2);
 		if (line2.substr(0, 2) == "v ")
