@@ -126,7 +126,7 @@ bool GraphicsHandler::Frame(float fps, float frameTime, InputHandler* inputObj)
 	this->rotation += 3.1415f * 0.01f;
 	if (this->rotation > 720.0f)
 	{
-		this->rotation -= 360.0f;
+		this->rotation = -360.0f;
 	}
 
 	return result;
