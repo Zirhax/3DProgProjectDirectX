@@ -11,6 +11,18 @@ ObjectFactory::~ObjectFactory()
 {
 }
 
+vector<D3Object*> ObjectFactory::CreateFromFile(char * fileName, FactoryObjectFormat objectFormat)
+{
+	vector<D3Object*> storeIn;
+	this->CreateFromFile(fileName, objectFormat, storeIn);
+	return storeIn;
+}
+
+void ObjectFactory::CreateFromFile(char * fileName, FactoryObjectFormat objectFormat, vector<D3Object*> &storeIn)
+{
+
+}
+
 bool ObjectFactory::CreateObject(D3Object * storeIn, char * fileName, FactoryObjectFormat objectFormat)
 {
 	bool result = false;
