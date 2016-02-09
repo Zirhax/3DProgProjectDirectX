@@ -146,12 +146,13 @@ bool InputHandler::Frame()
 	return true;
 }
 
-bool InputHandler::IsEscapePressed()
+bool InputHandler::IsEscapePressed(int keyboardScanCode)
 {
 	// Do a bitwise and on the keyboard state to check if the escape key is currently being pressed.
 	if (this->m_keys[DIK_ESCAPE] & 0x80)
 	{
 		return true;
+		DIKEYBOARD_0;
 	}
 
 	return false;
