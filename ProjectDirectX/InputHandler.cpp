@@ -160,10 +160,12 @@ bool InputHandler::IsEscapePressed()
 bool InputHandler::IsKeyPressed(int keyboardScanCode)
 {
 	bool result = false;
-
-	if (this->m_keys[keyboardScanCode])
+	if (keyboardScanCode < sizeof(this->m_keys) && keyboardScanCode > 0)
 	{
-		return true;
+		if (this->m_keys[keyboardScanCode])
+		{
+			return true;
+		}
 	}
 
 	return result;
