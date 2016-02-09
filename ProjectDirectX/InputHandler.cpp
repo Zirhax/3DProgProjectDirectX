@@ -157,6 +157,11 @@ bool InputHandler::IsEscapePressed()
 	return false;
 }
 
+bool InputHandler::IsKeyPressed()
+{
+
+}
+
 bool InputHandler::IsKeyDown(unsigned int key)
 {
 	return m_keys[key];
