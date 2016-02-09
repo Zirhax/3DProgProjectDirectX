@@ -33,6 +33,7 @@ public:
 	void Shutdown();
 	bool Frame();
 
+	bool IsEscapePressed();
 	bool IsKeyDown(unsigned int key);
 	void GetMouse(int& x, int& y);
 private:
