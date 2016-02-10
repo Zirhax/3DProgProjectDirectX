@@ -100,6 +100,7 @@ bool D3Object::CreateFromData(vector<VertexModel> vertexData)
 	{
 		this->m_model[j] = vertexData[m_vertexCount - j - 1];
 	}
+	return true;
 }
 
 bool D3Object::InitializeBuffers(ID3D11Device *device)
