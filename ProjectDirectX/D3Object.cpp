@@ -60,6 +60,7 @@ bool D3Object::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceConte
 	return true;
 }
 
+
 void D3Object::Shutdown()
 {
 	//Release the texture.
@@ -81,7 +82,7 @@ void D3Object::Render(ID3D11DeviceContext * deviceContext)
 	return;
 }
 
-int D3Object::GetIndexCount()
+int D3Object::GetIndexCount()const
 {
 	return this->m_indexCount;
 }
@@ -89,6 +90,17 @@ int D3Object::GetIndexCount()
 ID3D11ShaderResourceView * D3Object::GetTexture()
 {
 	return this->m_texture->GetTextureView();
+}
+
+bool D3Object::CreateFromData(vector<VertexModel> vertexData)
+{
+	this->m_vertexCount = vertexData.size();
+	this->m_indexCount = vertexData.size();//vertices.size();
+	for (int j = 0; j < m_vertexCount; j++)
+	{
+		this->m_model[j] = vertexData[m_vertexCount - j - 1];
+	}
+	return true;
 }
 
 bool D3Object::InitializeBuffers(ID3D11Device *device)

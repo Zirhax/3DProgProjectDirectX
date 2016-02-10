@@ -6,8 +6,12 @@
 
 #include <windows.h>
 
+#include "FPSHandler.h"
+#include "Timer.h"
+
 #include "InputHandler.h"
 #include "GraphicsHandler.h"
+
 
 class System
 {
@@ -18,6 +22,8 @@ private:
 
 	InputHandler* m_Input;
 	GraphicsHandler* m_Graphics;
+	FPSHandler* m_FPS;
+	Timer* m_timer;
 
 	bool Frame();
 	void InitializeWindows(int& width, int& height);
